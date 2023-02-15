@@ -2,11 +2,13 @@ package com.codecool.stackoverflowtw;
 
 import com.codecool.stackoverflowtw.dao.QuestionsDAO;
 import com.codecool.stackoverflowtw.dao.QuestionsDaoJdbc;
-import com.codecool.stackoverflowtw.dao.database.Database;
-import com.codecool.stackoverflowtw.dao.database.DatabasePSQL;
+import com.codecool.stackoverflowtw.dao.database.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 public class StackoverflowTwApplication {
@@ -18,6 +20,14 @@ public class StackoverflowTwApplication {
     @Bean
     public QuestionsDAO questionsDAO() {
         Database database = new DatabasePSQL(System.getenv("PSQL_URL"), System.getenv("PSQL_USERNAME"), System.getenv("PSQL_PASSWORD"));
-        return new QuestionsDaoJdbc(database);
+        Map<String, String> tables = Map.of(
+                "users", TableStatements.USER,
+                "questions", TableStatements.QUESTION,
+                "answers", TableStatements.ANSWER
+        );
+
+        TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
+        tableInitializer.initialize();
+        return new QuestionsDaoJdbc(tableInitializer, database);
     }
 }
