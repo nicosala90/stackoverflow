@@ -4,11 +4,10 @@ import com.codecool.stackoverflowtw.dao.database.Database;
 import com.codecool.stackoverflowtw.dao.database.TableInitializer;
 import com.codecool.stackoverflowtw.dao.model.Question;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class QuestionsDaoJdbc implements QuestionsDAO {
     private final TableInitializer tableInitializer;
@@ -49,5 +48,27 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         statement.setString(2, question.getQuestion_text());
         statement.setInt(3, question.getPoints());
         statement.setTimestamp(4, question.getPosting_time());
+    }
+
+    public List<Question> getAllQuestions() {
+        List<Question> questions = new ArrayList<>();
+        String query = "select * from questions";
+        try(Statement stmt = database.getConnection().createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columsNumber = rsmd.getColumnCount();
+            System.out.println(columsNumber);
+            while(rs.next()) {
+                int user_id = rs.getInt(1);
+                int quest_id = rs.getInt(2);
+                String question_text = rs.getString(3);
+                int point = rs.getInt(4);
+                Timestamp timestamp = rs.getTimestamp(5);
+                questions.add(new Question(user_id, quest_id, question_text, point, timestamp));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return questions;
     }
 }

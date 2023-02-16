@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,13 +24,17 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> getAllQuestions() {
-        // TODO
-        return List.of(new QuestionDTO(1, "example title", "example desc", LocalDateTime.now()));
+        List<Question> questions = questionsDAO.getAllQuestions();
+        List<QuestionDTO> questionDTOList =
+                questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(),
+                        "Title", question.getQuestion_text(), question.getPosting_time())).toList();
+       return questionDTOList;
     }
 
     public QuestionDTO getQuestionById(int id) {
         // TODO
-        return new QuestionDTO(id, "example title", "example desc", LocalDateTime.now());
+        //return new QuestionDTO(id, "example title", "example desc", LocalDateTime.now());
+        return null;
     }
 
     public boolean deleteQuestionById(int id) {
