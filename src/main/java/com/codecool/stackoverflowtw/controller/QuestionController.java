@@ -31,8 +31,8 @@ public class QuestionController {
     @PostMapping("/")
     //public int addNewQuestion(@RequestBody NewQuestionDTO question) {
     //    return 0;
-    public void addNewQuestion(@RequestBody NewQuestionDTO question) {
-        questionService.addNewQuestion(question);
+    public void addNewQuestion(/*@RequestBody NewQuestionDTO question*/) {
+        questionService.addNewQuestion(/*question*/null);
     }
 
     @DeleteMapping("/{id}")

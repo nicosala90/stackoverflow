@@ -3,13 +3,14 @@ package com.codecool.stackoverflowtw.dao;
 import com.codecool.stackoverflowtw.dao.database.Database;
 import com.codecool.stackoverflowtw.dao.database.TableInitializer;
 import com.codecool.stackoverflowtw.dao.model.Question;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
-
 public class QuestionsDaoJdbc implements QuestionsDAO {
     private final TableInitializer tableInitializer;
     private final Database database;
@@ -43,9 +44,9 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     private void prepare(Question question, PreparedStatement statement) throws SQLException {
-        statement.setInt(2, question.getUser_id());
-        statement.setString(3, question.getQuestion_text());
-        statement.setInt(4, question.getPoints());
-        statement.setTimestamp(5, question.getPosting_time());
+        statement.setInt(1, question.getUser_id());
+        statement.setString(2, question.getQuestion_text());
+        statement.setInt(3, question.getPoints());
+        statement.setTimestamp(4, question.getPosting_time());
     }
 }
