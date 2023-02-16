@@ -1,5 +1,7 @@
 package com.codecool.stackoverflowtw.dao;
 
+import com.codecool.stackoverflowtw.dao.model.Question;
+
 public interface QuestionsDAO {
-    void addQuestion();
+    void addQuestion(Question question);
 }

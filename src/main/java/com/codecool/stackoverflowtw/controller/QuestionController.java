@@ -29,9 +29,8 @@ public class QuestionController {
     }
 
     @PostMapping("/")
-    //public int addNewQuestion(@RequestBody NewQuestionDTO question) {
-    //    return 0;
     public void addNewQuestion(@RequestBody NewQuestionDTO question) {
+        System.out.println(question);
         questionService.addNewQuestion(question);
     }
 

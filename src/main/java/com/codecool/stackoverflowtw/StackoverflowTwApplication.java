@@ -9,8 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @SpringBootApplication
 public class StackoverflowTwApplication {
@@ -22,13 +21,13 @@ public class StackoverflowTwApplication {
     @Bean
     public QuestionsDAO questionsDAO() {
         Database database = new DatabasePSQL(System.getenv("PSQL_URL"), System.getenv("PSQL_USERNAME"), System.getenv("PSQL_PASSWORD"));
-        Map<String, String> tables = Map.of(
+        Map<String, String> tables = new LinkedHashMap<>(Map.of(
                 "users", TableStatements.USER,
                 "questions", TableStatements.QUESTION,
                 "answers", TableStatements.ANSWER
-        );
+        ));
 
-        Question question = new Question(2, "adsafaefwefsd", 0, Timestamp.valueOf("2022-01-01 10:10:10"));
+//        Question question = new Question(2, "adsafaefwefsd", 0, Timestamp.valueOf("2022-01-01 10:10:10"));
         TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
         tableInitializer.initialize();
         return new QuestionsDaoJdbc(tableInitializer, database);

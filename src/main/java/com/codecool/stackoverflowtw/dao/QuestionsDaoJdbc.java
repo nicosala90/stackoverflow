@@ -20,11 +20,13 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     @Override
-    public void addQuestion() {
-        Date date = new Date();
-        String question_text = "Ez az első kérdésünk";
-        //post(new Question(question_text));
-       post(new Question(2, question_text, 0, new Timestamp(date.getTime())));
+    public void addQuestion(Question question) {
+//        Date date = new Date();
+//        String question_text = "Ez az első kérdésünk";
+//        //post(new Question(question_text));
+//       post(new Question(2, question_text, 0, new Timestamp(date.getTime())));
+
+        post(question);
     }
 
     public void post(Question question) {
@@ -43,9 +45,9 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     private void prepare(Question question, PreparedStatement statement) throws SQLException {
-        statement.setInt(2, question.getUser_id());
-        statement.setString(3, question.getQuestion_text());
-        statement.setInt(4, question.getPoints());
-        statement.setTimestamp(5, question.getPosting_time());
+        statement.setInt(1, question.getUser_id());
+        statement.setString(2, question.getQuestion_text());
+        statement.setInt(3, question.getPoints());
+        statement.setTimestamp(4, question.getPosting_time());
     }
 }
