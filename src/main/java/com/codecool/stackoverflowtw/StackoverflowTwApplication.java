@@ -3,10 +3,12 @@ package com.codecool.stackoverflowtw;
 import com.codecool.stackoverflowtw.dao.QuestionsDAO;
 import com.codecool.stackoverflowtw.dao.QuestionsDaoJdbc;
 import com.codecool.stackoverflowtw.dao.database.*;
+import com.codecool.stackoverflowtw.dao.model.Question;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +28,7 @@ public class StackoverflowTwApplication {
                 "answers", TableStatements.ANSWER
         );
 
+        Question question = new Question(2, "adsafaefwefsd", 0, Timestamp.valueOf("2022-01-01 10:10:10"));
         TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
         tableInitializer.initialize();
         return new QuestionsDaoJdbc(tableInitializer, database);

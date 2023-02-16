@@ -4,7 +4,7 @@ public interface TableStatements {
     String QUESTION = """
             CREATE TABLE IF NOT EXISTS QUESTIONS (
                 question_id SERIAL PRIMARY KEY NOT NULL,
-                user_id SERIAL REFERENCES users(user_id),
+
                 question_text TEXT,
                 points INTEGER,
                 posting_time TIMESTAMPTZ
@@ -29,6 +29,14 @@ public interface TableStatements {
                 registration_date TIMESTAMPTZ,
                 password CHARACTER VARYING(30),
                 is_admin BOOLEAN
+            );
+            """;
+
+    String QUESTIONFOREIGHNKEYS = """
+         ALTER TABLE QUESTIONS
+                 ADD CONSTRAINT fk_orders_customers FOREIGN KEY (customer_id) REFERENCES customers (id);
+ 
+                user_id SERIAL REFERENCES users(user_id),
             );
             """;
 }
