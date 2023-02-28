@@ -23,9 +23,9 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public void addQuestion() {
         Date date = new Date();
-        String question_text = "Ez az első kérdésünk";
+        String question_text = "Ez a másodi harmadik kérdésünk";
         //post(new Question(question_text));
-       post(new Question(2, question_text, 0, new Timestamp(date.getTime())));
+       post(new Question(2, 5, question_text, 0, new Timestamp(date.getTime())));
     }
 
     public void post(Question question) {
