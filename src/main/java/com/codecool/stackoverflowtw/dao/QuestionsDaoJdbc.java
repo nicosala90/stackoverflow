@@ -83,7 +83,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public void addQuestion(String text) {
         Date date = new Date();
-        post(new Question(text, new Timestamp(date.getTime()) ));
+        post(new Question(text, new Timestamp(date.getTime())));
     }
 
     public void post(Question question) {

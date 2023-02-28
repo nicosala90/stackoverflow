@@ -35,6 +35,6 @@ public class QuestionService {
 
     //public int addNewQuestion(NewQuestionDTO question) {
     public void addNewQuestion(NewQuestionDTO question) {
-        questionsDAO.addQuestion(question.question_text());
+        questionsDAO.addQuestion(question.text());
     }
 }
