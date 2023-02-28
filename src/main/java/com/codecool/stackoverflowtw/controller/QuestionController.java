@@ -6,6 +6,7 @@ import com.codecool.stackoverflowtw.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -25,14 +26,14 @@ public class QuestionController {
 
     @GetMapping("/{id}")
     public QuestionDTO getQuestionById(@PathVariable int id) {
-        return null;
+        return new QuestionDTO(1,"dsssss", "alma", LocalDateTime.now());
     }
 
     @PostMapping("/")
     //public int addNewQuestion(@RequestBody NewQuestionDTO question) {
     //    return 0;
-    public void addNewQuestion(/*@RequestBody NewQuestionDTO question*/) {
-        questionService.addNewQuestion(/*question*/null);
+    public void addNewQuestion(@RequestBody NewQuestionDTO question) {
+        questionService.addNewQuestion(question);
     }
 
     @DeleteMapping("/{id}")
