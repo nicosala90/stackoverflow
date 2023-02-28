@@ -32,8 +32,8 @@ public class QuestionController {
         return questionService.getAllQuestionSortByDate();
     }
     @GetMapping("/sortByCount")
-    public List<QuestionDTO> getAllQuestionSortByCount() {
-        return questionService.getAllQuestionSortByCount();
+    public List<QuestionDTO> getAllQuestionSortByAnswerCount() {
+        return questionService.getAllQuestionSortByAnswerCount();
     }
 
     @GetMapping("/{id}")

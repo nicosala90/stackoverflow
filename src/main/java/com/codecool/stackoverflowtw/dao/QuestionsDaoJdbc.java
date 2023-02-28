@@ -74,7 +74,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     @Override
-    public List<Question> getAllQuestionSortByCount() {
+    public List<Question> getAllQuestionSortByAnswerCount() {
         String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.question_count ASC";
         try (Connection connection = database.getConnection();
              Statement statement = connection.createStatement();
