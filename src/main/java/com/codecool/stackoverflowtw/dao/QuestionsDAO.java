@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QuestionsDAO {
-    void addQuestion();
+    void addQuestion(String text);
     List<Question> getAllQuestions();
     Question getQuestionById(int id);
+    boolean deleteQuestionById(int id);
+
 }

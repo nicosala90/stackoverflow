@@ -26,6 +26,11 @@ public class Question {
         this.posting_time = posting_time;
     }
 
+    public Question(String question_text, Timestamp posting_time) {
+        this.question_text = question_text;
+        this.posting_time = posting_time;
+    }
+
     public int getQuestion_id() {
         return question_id;
     }

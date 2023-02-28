@@ -30,12 +30,11 @@ public class QuestionService {
     }
 
     public boolean deleteQuestionById(int id) {
-        // TODO
-        return false;
+        return questionsDAO.deleteQuestionById(id);
     }
 
     //public int addNewQuestion(NewQuestionDTO question) {
     public void addNewQuestion(NewQuestionDTO question) {
-        questionsDAO.addQuestion();
+        questionsDAO.addQuestion(question.question_text());
     }
 }

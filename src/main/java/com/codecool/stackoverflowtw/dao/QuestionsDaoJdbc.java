@@ -23,16 +23,6 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     @Override
-    public void addQuestion() {
-        Date date = new Date();
-        String question_text = "Ez az első kérdésünk";
-        //post(new Question(question_text));
-        for (int i = 0; i < 10; i++) {
-            post(new Question(i, question_text, i * 5, new Timestamp(date.getTime())));
-        }
-    }
-
-    @Override
     public List<Question> getAllQuestions() {
         String getAllQuestions = "SELECT * FROM questions";
         try (Connection connection = database.getConnection();
@@ -51,17 +41,30 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public Question getQuestionById(int id) {
-        String getAllQuestions = "SELECT * FROM questions WHERE questions.question_id = ?";
+        String getQuestions = "SELECT * FROM questions WHERE questions.question_id = ?";
         Question question = null;
         try (Connection connection = database.getConnection();
-             PreparedStatement statement = connection.prepareStatement(getAllQuestions)) {
+             PreparedStatement statement = connection.prepareStatement(getQuestions)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-               question = toEntity(resultSet);
+                question = toEntity(resultSet);
             }
             resultSet.close();
             return question;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean deleteQuestionById(int id) {
+        String deleteQuestion = "DELETE FROM questions WHERE question_id = ?";
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuestion)) {
+            statement.setInt(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -75,6 +78,12 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
                 resultSet.getInt("points"),
                 resultSet.getTimestamp("posting_time")
         );
+    }
+
+    @Override
+    public void addQuestion(String text) {
+        Date date = new Date();
+        post(new Question(text, new Timestamp(date.getTime()) ));
     }
 
     public void post(Question question) {
