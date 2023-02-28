@@ -83,13 +83,15 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public void addQuestion(String text) {
         Date date = new Date();
+
         post(new Question(text, new Timestamp(date.getTime()) ));
+
     }
 
     public void post(Question question) {
         // Write the insert statements here!
         //String template = "INSERT INTO questions(question_text) values(?) ";
-        String template = "INSERT INTO questions(user_id, question_text, points, posting_time) values(?, ?, ?, ?) ";
+        String template = "INSERT INTO questions(question_id, user_id, question_text, points, posting_time) values( ?, ?,?, ?, ?) ";
         //String template = "INSERT INTO questions(question_id, user_id, question_text, points, posting_time) values(?, ?, ?, ?, ?) ";
         try (Connection connection = database.getConnection();
              PreparedStatement statement = connection.prepareStatement(template)) {
@@ -102,9 +104,10 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     private void prepare(Question question, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, question.getUser_id());
-        statement.setString(2, question.getQuestion_text());
-        statement.setInt(3, question.getPoints());
-        statement.setTimestamp(4, question.getPosting_time());
+        statement.setInt(1, question.getQuestion_id());
+        statement.setInt(2, question.getUser_id());
+        statement.setString(3, question.getQuestion_text());
+        statement.setInt(4, question.getPoints());
+        statement.setTimestamp(5, question.getPosting_time());
     }
 }
