@@ -26,18 +26,18 @@ public class QuestionController {
 
     @GetMapping("/{id}")
     public QuestionDTO getQuestionById(@PathVariable int id) {
-        return new QuestionDTO(1,"dsssss", "alma", LocalDateTime.now());
+
+        return questionService.getQuestionById(id);
     }
 
     @PostMapping("/")
-    //public int addNewQuestion(@RequestBody NewQuestionDTO question) {
-    //    return 0;
+
     public void addNewQuestion(@RequestBody NewQuestionDTO question) {
         questionService.addNewQuestion(question);
     }
 
     @DeleteMapping("/{id}")
     public boolean deleteQuestionById(@PathVariable int id) {
-        return false;
+        return questionService.deleteQuestionById(id);
     }
 }
