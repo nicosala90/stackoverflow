@@ -11,6 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class QuestionsDaoJdbc implements QuestionsDAO {
     private final TableInitializer tableInitializer;
@@ -26,11 +27,13 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         Date date = new Date();
         String question_text = "Ez az első kérdésünk";
         //post(new Question(question_text));
-       post(new Question(2, question_text, 0, new Timestamp(date.getTime())));
+        for (int i = 0; i < 10; i++) {
+            post(new Question(i, question_text, i * 5, new Timestamp(date.getTime())));
+        }
     }
 
     @Override
-    public List<Question> getQuestions() {
+    public List<Question> getAllQuestions() {
         String getAllQuestions = "SELECT * FROM questions";
         try (Connection connection = database.getConnection();
              Statement statement = connection.createStatement();
@@ -45,6 +48,25 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Question getQuestionById(int id) {
+        String getAllQuestions = "SELECT * FROM questions WHERE questions.question_id = ?";
+        Question question = null;
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(getAllQuestions)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+               question = toEntity(resultSet);
+            }
+            resultSet.close();
+            return question;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private Question toEntity(ResultSet resultSet) throws SQLException {
         return new Question(
                 resultSet.getInt("question_id"),
