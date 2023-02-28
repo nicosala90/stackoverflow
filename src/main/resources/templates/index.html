@@ -3,14 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Example Title</title>
+	<link href="css/site.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>Hello Codecool!</h1>
-<p>
-	<small th:text="'Welcome '+ ${name} +' on our site!'"></small>
-</p>
-
-
-
+<h2>Main Page</h2>
+<div class="container">
+	<div class="card base-margin">
+		<a href="/new-question">Create new question</a>
+	</div>
+</div>
+<div class="container">
+	<div class="card base-margin">
+		<a href="/question-list">Questions List</a>
+	</div>
+</div>
 </body>
 </html>
