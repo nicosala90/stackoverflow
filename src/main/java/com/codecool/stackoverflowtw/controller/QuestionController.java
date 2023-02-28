@@ -23,15 +23,17 @@ public class QuestionController {
     public List<QuestionDTO> getAllQuestions() {
         return questionService.getAllQuestions();
     }
+    @GetMapping("/sort/{sortBy}")
+    public List<QuestionDTO> getAllQuestionsSortBy(@PathVariable String sortBy) {//maybe with Enum
+        return questionService.getAllQuestionsSortBy(sortBy);
+    }
 
     @GetMapping("/{id}")
     public QuestionDTO getQuestionById(@PathVariable int id) {
-
         return questionService.getQuestionById(id);
     }
 
     @PostMapping("/")
-
     public void addNewQuestion(@RequestBody NewQuestionDTO question) {
         questionService.addNewQuestion(question);
     }

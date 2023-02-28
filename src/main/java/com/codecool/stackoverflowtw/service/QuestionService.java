@@ -24,6 +24,10 @@ public class QuestionService {
        return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(),question.getUser_id(), question.getQuestion_text(), question.getPoints(), question.getPosting_time())).toList();
 
     }
+    public List<QuestionDTO> getAllQuestionsSortBy(String sortBy) {
+        List<Question> questions = questionsDAO.getAllQuestionBySort(sortBy);
+        return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(),question.getUser_id(), question.getQuestion_text(), question.getPoints(), question.getPosting_time())).toList();
+    }
 
   public QuestionDTO getQuestionById(int id) {
         Question question = questionsDAO.getQuestionById(id);

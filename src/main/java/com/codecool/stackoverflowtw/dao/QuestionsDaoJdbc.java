@@ -40,6 +40,24 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     @Override
+    public List<Question> getAllQuestionBySort(String sortBy) {
+        String getAllQuestionsBySorting = "SELECT * FROM questions ORDER BY " + sortBy + " ASC";
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement();
+
+             ResultSet resultSet = statement.executeQuery(getAllQuestionsBySorting)) {
+            List<Question> questions = new ArrayList<>();
+            while (resultSet.next()) {
+                Question question = toEntity(resultSet);
+                questions.add(question);
+            }
+            return questions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public Question getQuestionById(int id) {
         String getQuestions = "SELECT * FROM questions WHERE questions.question_id = ?";
         Question question = null;
@@ -84,7 +102,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     public void addQuestion(String text) {
         Date date = new Date();
 
-        post(new Question(text, new Timestamp(date.getTime()) ));
+        post(new Question(text, new Timestamp(date.getTime())));
 
     }
 
