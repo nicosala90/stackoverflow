@@ -40,12 +40,45 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     @Override
-    public List<Question> getAllQuestionBySort(String sortBy) {
-        String getAllQuestionsBySorting = "SELECT * FROM questions ORDER BY " + sortBy + " ASC";
+    public List<Question> getAllQuestionSortByAlphabet() {
+        String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.question_text ASC";
         try (Connection connection = database.getConnection();
              Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
+            List<Question> questions = new ArrayList<>();
+            while (resultSet.next()) {
+                Question question = toEntity(resultSet);
+                questions.add(question);
+            }
+            return questions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-             ResultSet resultSet = statement.executeQuery(getAllQuestionsBySorting)) {
+    @Override
+    public List<Question> getAllQuestionSortByDate() {
+        String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.posting_time ASC";
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
+            List<Question> questions = new ArrayList<>();
+            while (resultSet.next()) {
+                Question question = toEntity(resultSet);
+                questions.add(question);
+            }
+            return questions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Question> getAllQuestionSortByCount() {
+        String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.question_count ASC";
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
             List<Question> questions = new ArrayList<>();
             while (resultSet.next()) {
                 Question question = toEntity(resultSet);

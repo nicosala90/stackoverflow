@@ -24,8 +24,16 @@ public class QuestionService {
        return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(),question.getUser_id(), question.getQuestion_text(), question.getPoints(), question.getPosting_time())).toList();
 
     }
-    public List<QuestionDTO> getAllQuestionsSortBy(String sortBy) {
-        List<Question> questions = questionsDAO.getAllQuestionBySort(sortBy);
+    public List<QuestionDTO> getAllQuestionSortByAlphabet() {
+        List<Question> questions = questionsDAO.getAllQuestionSortByAlphabet();
+        return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(),question.getUser_id(), question.getQuestion_text(), question.getPoints(), question.getPosting_time())).toList();
+    }
+    public List<QuestionDTO> getAllQuestionSortByDate() {
+        List<Question> questions = questionsDAO.getAllQuestionSortByDate();
+        return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(),question.getUser_id(), question.getQuestion_text(), question.getPoints(), question.getPosting_time())).toList();
+    }
+    public List<QuestionDTO> getAllQuestionSortByCount() {
+        List<Question> questions = questionsDAO.getAllQuestionSortByCount();
         return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(),question.getUser_id(), question.getQuestion_text(), question.getPoints(), question.getPosting_time())).toList();
     }
 

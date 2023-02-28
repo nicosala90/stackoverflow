@@ -23,9 +23,17 @@ public class QuestionController {
     public List<QuestionDTO> getAllQuestions() {
         return questionService.getAllQuestions();
     }
-    @GetMapping("/sort/{sortBy}")
-    public List<QuestionDTO> getAllQuestionsSortBy(@PathVariable String sortBy) {//maybe with Enum
-        return questionService.getAllQuestionsSortBy(sortBy);
+    @GetMapping("/sortByAlphabet")
+    public List<QuestionDTO> getAllQuestionSortByAlphabet() {//maybe with Enum can do it dynamically changinf
+        return questionService.getAllQuestionSortByAlphabet();
+    }
+    @GetMapping("/sortByDate")
+    public List<QuestionDTO> getAllQuestionSortByDate() {
+        return questionService.getAllQuestionSortByDate();
+    }
+    @GetMapping("/sortByCount")
+    public List<QuestionDTO> getAllQuestionSortByCount() {
+        return questionService.getAllQuestionSortByCount();
     }
 
     @GetMapping("/{id}")
