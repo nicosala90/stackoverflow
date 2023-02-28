@@ -2,6 +2,7 @@ package com.codecool.stackoverflowtw.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -17,4 +18,10 @@ public class IndexController {
     public String questions() {
         return "question_list";
     }
+
+    @GetMapping("/question{id}")
+    public String questionDetailById(@PathVariable int id) {
+        return "question_detail";
+    }
 }
+
