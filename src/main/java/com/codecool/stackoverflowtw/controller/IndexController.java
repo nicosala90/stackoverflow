@@ -23,5 +23,10 @@ public class IndexController {
     public String questionDetailById(@PathVariable int id) {
         return "question_detail";
     }
+
+    @GetMapping("/new-question")
+    public String newQuestion() {
+        return "add_question";
+    }
 }
 
