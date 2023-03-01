@@ -16,6 +16,7 @@ public class Question {
         this.postingTime = postingTime;
     }
 
+
     public Question(String questionText, Timestamp postingTime) {
         this.questionText = questionText;
         this.postingTime = postingTime;
@@ -27,6 +28,7 @@ public class Question {
 
     public int getUserId() {
         return userId;
+
     }
 
     public String getQuestionText() {

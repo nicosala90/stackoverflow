@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QuestionsDAO {
-    void addQuestion(String text);
+    void addQuestion(int userId, String questionText);
     List<Question> getAllQuestions();
     List<Question> getAllQuestionSortByAlphabet();
     List<Question> getAllQuestionSortByDate();
