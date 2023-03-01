@@ -3,7 +3,6 @@ package com.codecool.stackoverflowtw.dao;
 import com.codecool.stackoverflowtw.dao.database.Database;
 import com.codecool.stackoverflowtw.dao.database.TableInitializer;
 import com.codecool.stackoverflowtw.dao.model.Answer;
-import com.codecool.stackoverflowtw.dao.model.Question;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,11 +69,11 @@ public class AnswersDaoJdbc implements AnswersDAO {
     }
 
     private void prepare(Answer answer, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, answer.getAnswer_id());
-        statement.setInt(2, answer.getQuestion_id());
+        statement.setInt(1, answer.getAnswerId());
+        statement.setInt(2, answer.getQuestionId());
         statement.setInt(3, 1);
-        statement.setString(4, answer.getAnswer_text());
-        statement.setTimestamp(5, answer.getPosting_time());
+        statement.setString(4, answer.getAnswerText());
+        statement.setTimestamp(5, answer.getPostingTime());
 
     }
 }

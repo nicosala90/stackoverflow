@@ -1,17 +1,13 @@
 package com.codecool.stackoverflowtw.dao;
 
-import com.codecool.stackoverflowtw.controller.dto.QuestionDTO;
 import com.codecool.stackoverflowtw.dao.database.Database;
 import com.codecool.stackoverflowtw.dao.database.TableInitializer;
 import com.codecool.stackoverflowtw.dao.model.Question;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public class QuestionsDaoJdbc implements QuestionsDAO {
     private final TableInitializer tableInitializer;
@@ -133,9 +129,9 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     private void prepare(Question question, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, question.getQuestion_id());
-        statement.setInt(2, question.getUser_id());
-        statement.setString(3, question.getQuestion_text());
-        statement.setTimestamp(4, question.getPosting_time());
+        statement.setInt(1, question.getQuestionId());
+        statement.setInt(2, question.getUserId());
+        statement.setString(3, question.getQuestionText());
+        statement.setTimestamp(4, question.getPostingTime());
     }
 }

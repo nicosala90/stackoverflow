@@ -20,7 +20,7 @@ public class AnswerService {
     }
     public List<AnswerDTO> getAllAnswers(int questionId){
         List<Answer> answers = answersDAO.getAllAnswerByQuestion(questionId);
-        return answers.stream().map((answer -> new AnswerDTO(answer.getAnswer_id(), answer.getQuestion_id(), answer.getUser_id(),answer.getAnswer_text(), answer.getPosting_time()))).toList();
+        return answers.stream().map((answer -> new AnswerDTO(answer.getAnswerId(), answer.getQuestionId(), answer.getUserId(),answer.getAnswerText(), answer.getPostingTime()))).toList();
     }
     public void addNewAnswer(NewAnswerDTO answer){
         answersDAO.postAnswer(answer.text(), answer.id());
