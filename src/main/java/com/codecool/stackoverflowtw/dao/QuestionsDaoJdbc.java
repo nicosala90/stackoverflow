@@ -82,7 +82,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     public Question getQuestionById(int id) {
         String getQuestions = "SELECT * FROM questions WHERE questions.question_id = ?";
         Question question = null;
-        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(getQuestions)) {
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(getQuestions)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

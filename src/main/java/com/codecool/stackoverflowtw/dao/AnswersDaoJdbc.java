@@ -21,8 +21,11 @@ public class AnswersDaoJdbc implements AnswersDAO {
 
     @Override
     public List<Answer> getAllAnswerByQuestion(int questionId) {
-        String getAllAnswer = "SELECT * FROM answer WHERE answer.question_id = ?";
-        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getAllAnswer)) {
+        String getAllAnswer = "SELECT * FROM answers WHERE answers.question_id = ?";
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(getAllAnswer)){
+            statement.setInt(1, questionId);
+            ResultSet resultSet = statement.executeQuery();
             List<Answer> answers = new ArrayList<>();
             while (resultSet.next()) {
                 Answer answer = toEntity(resultSet);
@@ -46,18 +49,14 @@ public class AnswersDaoJdbc implements AnswersDAO {
         }
     }
 
-    private Answer toEntity(ResultSet resultSet) throws SQLException {
-        return new Answer(resultSet.getInt("answer_id"), resultSet.getInt("question_id"), resultSet.getInt("user_id"), resultSet.getString("answer_text"), resultSet.getTimestamp("posting_time"));
-    }
-
     @Override
     public void postAnswer(String answerText, int id) {
         Date date = new Date();
-        post(new Answer(id,answerText, new Timestamp(date.getTime())));
+        post(new Answer(id, answerText, new Timestamp(date.getTime())));
     }
 
     public void post(Answer answer) {
-        String template = "INSERT INTO answers(answer_id, question_id, user_id, answer_text,  posting_time ) values(?, ?, ?, ?, ?) ";
+        String template = "INSERT INTO answers(answer_id, question_id, user_id, answer_text,  posting_time ) values(DEFAULT, ?, ?, ?, ?) ";
         try (Connection connection = database.getConnection();
              PreparedStatement statement = connection.prepareStatement(template)) {
             prepare(answer, statement);
@@ -68,12 +67,15 @@ public class AnswersDaoJdbc implements AnswersDAO {
         }
     }
 
-    private void prepare(Answer answer, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, answer.getAnswerId());
-        statement.setInt(2, answer.getQuestionId());
-        statement.setInt(3, 1);
-        statement.setString(4, answer.getAnswerText());
-        statement.setTimestamp(5, answer.getPostingTime());
+    private Answer toEntity(ResultSet resultSet) throws SQLException {//létrehozz egy new Answer példányt amit egy adat bázis sorrbol kiolvass
+        return new Answer(resultSet.getInt("answer_id"), resultSet.getInt("question_id"), resultSet.getInt("user_id"), resultSet.getString("answer_text"), resultSet.getTimestamp("posting_time"));
+    }
 
+    private void prepare(Answer answer, PreparedStatement statement) throws SQLException {//egy már létrejött Answer példányt bele raka az adatbázisba a "?" helyére
+        statement.setInt(1, answer.getQuestionId());
+        statement.setInt(2, 1);
+        //TODO
+        statement.setString(3, answer.getAnswerText());
+        statement.setTimestamp(4, answer.getPostingTime());
     }
 }
