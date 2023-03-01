@@ -15,6 +15,8 @@ function loadQuestionDetail() {
 function displayQuestion(question) {
     const questionId = document.getElementById('question-id');
     questionId.textContent = question['question_id']
+    const userId = document.getElementById('user-id');
+    userId.textContent = question['user_id']
     const questionDate = document.getElementById('question-date');
     questionDate.textContent = question['posting_time']
     const questionText = document.getElementById('question-text');
