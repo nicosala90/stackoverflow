@@ -23,7 +23,7 @@ public class AnswerService {
         return answers.stream().map((answer -> new AnswerDTO(answer.getAnswer_id(), answer.getQuestion_id(), answer.getUser_id(),answer.getAnswer_text(), answer.getPosting_time()))).toList();
     }
     public void addNewAnswer(NewAnswerDTO answer){
-        answersDAO.postAnswer(answer.text());
+        answersDAO.postAnswer(answer.text(), answer.id());
     }
     public boolean deleteAnswer(int id){
         return answersDAO.deleteAnswer(id);

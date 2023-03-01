@@ -31,5 +31,4 @@ public class AnswerController {
     public boolean deleteAnswer(@PathVariable int id) {
         return answerService.deleteAnswer(id);
     }
-
 }

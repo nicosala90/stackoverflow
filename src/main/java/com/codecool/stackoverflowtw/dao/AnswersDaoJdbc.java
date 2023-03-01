@@ -52,9 +52,9 @@ public class AnswersDaoJdbc implements AnswersDAO {
     }
 
     @Override
-    public void postAnswer(String answerText) {
+    public void postAnswer(String answerText, int id) {
         Date date = new Date();
-        post(new Answer(answerText, new Timestamp(date.getTime())));
+        post(new Answer(id,answerText, new Timestamp(date.getTime())));
     }
 
     public void post(Answer answer) {
@@ -72,7 +72,7 @@ public class AnswersDaoJdbc implements AnswersDAO {
     private void prepare(Answer answer, PreparedStatement statement) throws SQLException {
         statement.setInt(1, answer.getAnswer_id());
         statement.setInt(2, answer.getQuestion_id());
-        statement.setInt(3, answer.getUser_id());
+        statement.setInt(3, 1);
         statement.setString(4, answer.getAnswer_text());
         statement.setTimestamp(5, answer.getPosting_time());
 
