@@ -17,7 +17,7 @@ public class Question {
         this.posting_time = posting_time;
     }
 
-    public Question(int user_id, String question_text, int points, Timestamp posting_time) {
+    public Question(int user_id, String question_text, Timestamp posting_time) {
         this.user_id = user_id;
         this.question_text = question_text;
         this.posting_time = posting_time;
