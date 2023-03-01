@@ -23,21 +23,31 @@ public class QuestionController {
     public List<QuestionDTO> getAllQuestions() {
         return questionService.getAllQuestions();
     }
+    @GetMapping("/sortByAlphabet")
+    public List<QuestionDTO> getAllQuestionSortByAlphabet() {//maybe with Enum can do it dynamically changinf
+        return questionService.getAllQuestionSortByAlphabet();
+    }
+    @GetMapping("/sortByDate")
+    public List<QuestionDTO> getAllQuestionSortByDate() {
+        return questionService.getAllQuestionSortByDate();
+    }
+    @GetMapping("/sortByCount")
+    public List<QuestionDTO> getAllQuestionSortByAnswerCount() {
+        return questionService.getAllQuestionSortByAnswerCount();
+    }
 
     @GetMapping("/{id}")
     public QuestionDTO getQuestionById(@PathVariable int id) {
-        return new QuestionDTO(1,"dsssss", "alma", LocalDateTime.now());
+        return questionService.getQuestionById(id);
     }
 
     @PostMapping("/")
-    //public int addNewQuestion(@RequestBody NewQuestionDTO question) {
-    //    return 0;
     public void addNewQuestion(@RequestBody NewQuestionDTO question) {
         questionService.addNewQuestion(question);
     }
 
     @DeleteMapping("/{id}")
     public boolean deleteQuestionById(@PathVariable int id) {
-        return false;
+        return questionService.deleteQuestionById(id);
     }
 }

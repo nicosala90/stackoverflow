@@ -6,7 +6,6 @@ public interface TableStatements {
                 question_id SERIAL PRIMARY KEY NOT NULL,
                 user_id INTEGER,
                 question_text TEXT,
-                points INTEGER,
                 posting_time TIMESTAMPTZ
             );
             """;
@@ -16,7 +15,6 @@ public interface TableStatements {
                 answer_id SERIAL PRIMARY KEY NOT NULL,
                 user_id SERIAL REFERENCES users(user_id),
                 answer_text TEXT,
-                points INTEGER,
                 question_id SERIAL REFERENCES questions(question_id),
                 posting_time TIMESTAMPTZ
             );
