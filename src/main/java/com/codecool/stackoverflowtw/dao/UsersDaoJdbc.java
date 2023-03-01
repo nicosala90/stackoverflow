@@ -1,9 +1,8 @@
 package com.codecool.stackoverflowtw.dao;
 
 import com.codecool.stackoverflowtw.dao.database.Database;
-import com.codecool.stackoverflowtw.dao.database.TableInitializer;
-import com.codecool.stackoverflowtw.dao.model.Question;
 import com.codecool.stackoverflowtw.dao.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,12 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 public class UsersDaoJdbc implements UsersDAO {
-
-    private final TableInitializer tableInitializer;
     private final Database database;
 
-    public UsersDaoJdbc(TableInitializer tableInitializer, Database database) {
-        this.tableInitializer = tableInitializer;
+    @Autowired
+    public UsersDaoJdbc(Database database) {
         this.database = database;
     }
 
@@ -37,7 +34,7 @@ public class UsersDaoJdbc implements UsersDAO {
 
     @Override
     public User getUserById(int userId) {
-       String userById = "SELECT * FROM users WHERE users.user_id = ?";
+        String userById = "SELECT * FROM users WHERE users.user_id = ?";
         User user = null;
         try (Connection connection = database.getConnection();
              PreparedStatement statement = connection.prepareStatement(userById)) {
@@ -64,7 +61,7 @@ public class UsersDaoJdbc implements UsersDAO {
         try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(deleteUser)) {
             statement.setInt(1, userId);
             int rowsDeleted = statement.executeUpdate();
-            System.out.println("User deleted. :) user_id : "+ userId + ".");
+            System.out.println("User deleted. :) user_id : " + userId + ".");
             return rowsDeleted > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);

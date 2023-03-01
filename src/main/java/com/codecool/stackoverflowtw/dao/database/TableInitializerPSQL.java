@@ -1,12 +1,11 @@
 package com.codecool.stackoverflowtw.dao.database;
 
-import org.springframework.stereotype.Component;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
+
 public class TableInitializerPSQL implements TableInitializer {
     private final Database database;
     private final Map<String, String> tables;

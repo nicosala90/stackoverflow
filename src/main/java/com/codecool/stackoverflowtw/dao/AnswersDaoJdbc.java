@@ -1,8 +1,8 @@
 package com.codecool.stackoverflowtw.dao;
 
 import com.codecool.stackoverflowtw.dao.database.Database;
-import com.codecool.stackoverflowtw.dao.database.TableInitializer;
 import com.codecool.stackoverflowtw.dao.model.Answer;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,20 +10,18 @@ import java.util.Date;
 import java.util.List;
 
 public class AnswersDaoJdbc implements AnswersDAO {
-
-    private final TableInitializer tableInitializer;
     private final Database database;
 
-    public AnswersDaoJdbc(TableInitializer tableInitializer, Database database) {
+    @Autowired
+    public AnswersDaoJdbc(Database database) {
         this.database = database;
-        this.tableInitializer = tableInitializer;
     }
 
     @Override
     public List<Answer> getAllAnswerByQuestion(int questionId) {
         String getAllAnswer = "SELECT * FROM answers WHERE answers.question_id = ?";
         try (Connection connection = database.getConnection();
-             PreparedStatement statement = connection.prepareStatement(getAllAnswer)){
+             PreparedStatement statement = connection.prepareStatement(getAllAnswer)) {
             statement.setInt(1, questionId);
             ResultSet resultSet = statement.executeQuery();
             List<Answer> answers = new ArrayList<>();
