@@ -13,6 +13,11 @@ public class Answer {
         this.answer_text = answer_text;
     }
 
+    public Answer(String answer_text, Timestamp posting_time) {
+        this.answer_text = answer_text;
+        this.posting_time = posting_time;
+    }
+
     public Answer(int answer_id, int question_id, int user_id, String answer_text, Timestamp posting_time){
         this.answer_id = answer_id;
         this.question_id = question_id;

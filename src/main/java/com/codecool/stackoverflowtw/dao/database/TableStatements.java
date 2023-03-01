@@ -1,6 +1,15 @@
 package com.codecool.stackoverflowtw.dao.database;
 
 public interface TableStatements {
+    String USER = """
+            CREATE TABLE IF NOT EXISTS USERS (
+                user_id SERIAL PRIMARY KEY NOT NULL,
+                username CHARACTER VARYING(30),
+                registration_date TIMESTAMPTZ,
+                password CHARACTER VARYING(30),
+                is_admin BOOLEAN
+            );
+            """;
     String QUESTION = """
             CREATE TABLE IF NOT EXISTS QUESTIONS (
                 question_id SERIAL PRIMARY KEY NOT NULL,
@@ -20,15 +29,6 @@ public interface TableStatements {
             );
             """;
 
-    String USER = """
-            CREATE TABLE IF NOT EXISTS USERS (
-                user_id SERIAL PRIMARY KEY NOT NULL,
-                username CHARACTER VARYING(30),
-                registration_date TIMESTAMPTZ,
-                password CHARACTER VARYING(30),
-                is_admin BOOLEAN
-            );
-            """;
 
     String QUESTIONFOREIGHNKEYS = """
          ALTER TABLE QUESTIONS
