@@ -22,12 +22,11 @@ public class AnswersDaoJdbc implements AnswersDAO {
     @Override
     public void sayAnswer() {
         Date date = new Date();
-        String answer_text = "First answer";
-        post(new Answer(2, 2, 2, answer_text, 3, new Timestamp(date.getTime())));
+        //TODO
     }
 
     public void post(Answer answer) {
-        String template = "INSERT INTO answers(answer_id, question_id, user_id, answer_text, points, posting_time ) values(?, ?, ?, ?, ?, ?) ";
+        String template = "INSERT INTO answers(answer_id, question_id, user_id, answer_text,  posting_time ) values(?, ?, ?, ?, ?) ";
         try (Connection connection = database.getConnection();
              PreparedStatement statement = connection.prepareStatement(template)) {
             prepare(answer, statement);
@@ -43,8 +42,7 @@ public class AnswersDaoJdbc implements AnswersDAO {
         statement.setInt(2, answer.getQuestion_id());
         statement.setInt(3, answer.getUser_id());
         statement.setString(4, answer.getAnswer_text());
-        statement.setInt(5, answer.getPoints());
-        statement.setTimestamp(6, answer.getPosting_time());
+        statement.setTimestamp(5, answer.getPosting_time());
 
     }
 }
