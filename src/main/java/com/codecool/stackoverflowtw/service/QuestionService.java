@@ -21,28 +21,28 @@ public class QuestionService {
 
     public List<QuestionDTO> getAllQuestions() {
         List<Question> questions = questionsDAO.getAllQuestions();
-        return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(), question.getUser_id(), question.getQuestion_text(), question.getPosting_time())).toList();
+        return questions.stream().map(question -> new QuestionDTO(question.getQuestionId(), question.getUserId(), question.getQuestionText(), question.getPostingTime())).toList();
 
     }
 
     public List<QuestionDTO> getAllQuestionSortByAlphabet() {
         List<Question> questions = questionsDAO.getAllQuestionSortByAlphabet();
-        return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(), question.getUser_id(), question.getQuestion_text(), question.getPosting_time())).toList();
+        return questions.stream().map(question -> new QuestionDTO(question.getQuestionId(), question.getUserId(), question.getQuestionText(), question.getPostingTime())).toList();
     }
 
     public List<QuestionDTO> getAllQuestionSortByDate() {
         List<Question> questions = questionsDAO.getAllQuestionSortByDate();
-        return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(), question.getUser_id(), question.getQuestion_text(), question.getPosting_time())).toList();
+        return questions.stream().map(question -> new QuestionDTO(question.getQuestionId(), question.getUserId(), question.getQuestionText(), question.getPostingTime())).toList();
     }
 
     public List<QuestionDTO> getAllQuestionSortByAnswerCount() {
         List<Question> questions = questionsDAO.getAllQuestionSortByAnswerCount();
-        return questions.stream().map(question -> new QuestionDTO(question.getQuestion_id(), question.getUser_id(), question.getQuestion_text(), question.getPosting_time())).toList();
+        return questions.stream().map(question -> new QuestionDTO(question.getQuestionId(), question.getUserId(), question.getQuestionText(), question.getPostingTime())).toList();
     }
 
     public QuestionDTO getQuestionById(int id) {
         Question question = questionsDAO.getQuestionById(id);
-        return new QuestionDTO(question.getQuestion_id(), question.getUser_id(), question.getQuestion_text(), question.getPosting_time());
+        return new QuestionDTO(question.getQuestionId(), question.getUserId(), question.getQuestionText(), question.getPostingTime());
     }
 
     public boolean deleteQuestionById(int id) {
@@ -50,6 +50,8 @@ public class QuestionService {
     }
 
     public void addNewQuestion(NewQuestionDTO question) {
+
         questionsDAO.addQuestion(question.userId(), question.questionText());
+
     }
 }

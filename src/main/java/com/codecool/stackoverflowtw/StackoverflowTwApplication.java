@@ -1,5 +1,7 @@
 package com.codecool.stackoverflowtw;
 
+import com.codecool.stackoverflowtw.dao.AnswersDAO;
+import com.codecool.stackoverflowtw.dao.AnswersDaoJdbc;
 import com.codecool.stackoverflowtw.dao.QuestionsDAO;
 import com.codecool.stackoverflowtw.dao.QuestionsDaoJdbc;
 import com.codecool.stackoverflowtw.dao.database.*;
@@ -27,10 +29,20 @@ public class StackoverflowTwApplication {
                 "questions", TableStatements.QUESTION,
                 "answers", TableStatements.ANSWER
         );
-
-        Question question = new Question(2, "adsafaefwefsd",  Timestamp.valueOf("2022-01-01 10:10:10"));
         TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
         tableInitializer.initialize();
         return new QuestionsDaoJdbc(tableInitializer, database);
+    }
+    @Bean
+    public AnswersDAO answersDAO() {
+        Database database = new DatabasePSQL(System.getenv("PSQL_URL"), System.getenv("PSQL_USERNAME"), System.getenv("PSQL_PASSWORD"));
+        Map<String, String> tables = Map.of(
+                "users", TableStatements.USER,
+                "questions", TableStatements.QUESTION,
+                "answers", TableStatements.ANSWER
+        );
+        TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
+        tableInitializer.initialize();
+        return new AnswersDaoJdbc(tableInitializer, database);
     }
 }
