@@ -1,7 +1,6 @@
 package com.codecool.stackoverflowtw.dao.model;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
 public class Question {
 
@@ -19,11 +18,6 @@ public class Question {
 
     public Question(int user_id, String question_text, Timestamp posting_time) {
         this.user_id = user_id;
-        this.question_text = question_text;
-        this.posting_time = posting_time;
-    }
-
-    public Question(String question_text, Timestamp posting_time) {
         this.question_text = question_text;
         this.posting_time = posting_time;
     }
