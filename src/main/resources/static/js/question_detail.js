@@ -5,6 +5,7 @@ function main() {
     let questionId = document.location.pathname.split("/question")[1];
     loadQuestionDetail(questionId);
     loadAnswerList(questionId);
+    addNewAnswerClickListener(questionId);
 }
 
 function loadQuestionDetail(questionId) {
@@ -30,8 +31,15 @@ function displayQuestion(question) {
 
 function displayAnswers(answers) {
     const answersTable = document.getElementById('result-table');
-    const answersTbody = html_factory.createTableContent(answers, ['answerId', 'questionId', 'userId', 'answerText', 'postingTime'],'answerId');
+    const answersTbody = html_factory.createTableContent(answers, ['answerId', 'questionId', 'userId', 'answerText', 'postingTime'], 'answerId');
     answersTable.insertAdjacentElement('beforeend', answersTbody);
+}
+
+function addNewAnswerClickListener(questionId) {
+    const newAnswerButton = document.getElementById('new-answer-button');
+    newAnswerButton.addEventListener('click', () => {
+        document.location = `/new-answer${questionId}`;
+    })
 }
 
 main();

@@ -7,13 +7,13 @@ function main() {
 
 function sendNewQuestionData() {
     const questionText = document.getElementById('new-question').value;
-    submitNewQuestion({'text': questionText});
+    submitNewQuestion({'questionText': questionText, 'userId': 1});
 }
 
 function submitNewQuestion(data) {
     data_handler
         .apiPost('api/questions/', data)
-        .then(result => showResult(result, data.text));
+        .then(result => showResult(result, data.questionText));
 }
 
 function showResult(result, name) {
@@ -22,6 +22,7 @@ function showResult(result, name) {
     if (result === 200) {
         submitResult.innerText = `Question successfully submitted.`
         submitResult.classList.add('green');
+        document.location = '/question-list';
     } else {
         submitResult.innerText = `Error during submission of ${name}`
         submitResult.classList.add('red');
