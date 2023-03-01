@@ -8,6 +8,9 @@ import java.util.Optional;
 public interface QuestionsDAO {
     void addQuestion(String text);
     List<Question> getAllQuestions();
+    List<Question> getAllQuestionSortByAlphabet();
+    List<Question> getAllQuestionSortByDate();
+    List<Question> getAllQuestionSortByAnswerCount();
     Question getQuestionById(int id);
     boolean deleteQuestionById(int id);
 

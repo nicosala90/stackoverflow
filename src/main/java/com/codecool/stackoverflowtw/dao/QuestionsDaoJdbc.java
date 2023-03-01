@@ -25,9 +25,52 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public List<Question> getAllQuestions() {
         String getAllQuestions = "SELECT * FROM questions";
-        try (Connection connection = database.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(getAllQuestions)) {
+        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getAllQuestions)) {
+            List<Question> questions = new ArrayList<>();
+            while (resultSet.next()) {
+                Question question = toEntity(resultSet);
+                questions.add(question);
+            }
+            return questions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Question> getAllQuestionSortByAlphabet() {
+        String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.question_text ASC";
+        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
+            List<Question> questions = new ArrayList<>();
+            while (resultSet.next()) {
+                Question question = toEntity(resultSet);
+                questions.add(question);
+            }
+            return questions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Question> getAllQuestionSortByDate() {
+        String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.posting_time ASC";
+        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
+            List<Question> questions = new ArrayList<>();
+            while (resultSet.next()) {
+                Question question = toEntity(resultSet);
+                questions.add(question);
+            }
+            return questions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Question> getAllQuestionSortByAnswerCount() {
+        String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.question_count ASC";
+        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
             List<Question> questions = new ArrayList<>();
             while (resultSet.next()) {
                 Question question = toEntity(resultSet);
@@ -43,8 +86,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     public Question getQuestionById(int id) {
         String getQuestions = "SELECT * FROM questions WHERE questions.question_id = ?";
         Question question = null;
-        try (Connection connection = database.getConnection();
-             PreparedStatement statement = connection.prepareStatement(getQuestions)) {
+        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(getQuestions)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -60,8 +102,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public boolean deleteQuestionById(int id) {
         String deleteQuestion = "DELETE FROM questions WHERE question_id = ?";
-        try (Connection connection = database.getConnection();
-             PreparedStatement statement = connection.prepareStatement(deleteQuestion)) {
+        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(deleteQuestion)) {
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
             return rowsDeleted > 0;
@@ -71,30 +112,20 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     private Question toEntity(ResultSet resultSet) throws SQLException {
-        return new Question(
-                resultSet.getInt("question_id"),
-                resultSet.getInt("user_id"),
-                resultSet.getString("question_text"),
-                resultSet.getInt("points"),
-                resultSet.getTimestamp("posting_time")
-        );
+        return new Question(resultSet.getInt("question_id"), resultSet.getInt("user_id"), resultSet.getString("question_text"), resultSet.getTimestamp("posting_time"));
     }
 
     @Override
     public void addQuestion(String text) {
         Date date = new Date();
 
-        post(new Question(text, new Timestamp(date.getTime()) ));
+        post(new Question(text, new Timestamp(date.getTime())));
 
     }
 
     public void post(Question question) {
-        // Write the insert statements here!
-        //String template = "INSERT INTO questions(question_text) values(?) ";
-        String template = "INSERT INTO questions(question_id, user_id, question_text, points, posting_time) values( ?, ?,?, ?, ?) ";
-        //String template = "INSERT INTO questions(question_id, user_id, question_text, points, posting_time) values(?, ?, ?, ?, ?) ";
-        try (Connection connection = database.getConnection();
-             PreparedStatement statement = connection.prepareStatement(template)) {
+        String template = "INSERT INTO questions(question_id, user_id, question_text, posting_time) values(?,?,?,?) ";
+        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(template)) {
             prepare(question, statement);
             statement.executeUpdate();
             System.out.println("Question posted. :)");
@@ -107,7 +138,6 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         statement.setInt(1, question.getQuestion_id());
         statement.setInt(2, question.getUser_id());
         statement.setString(3, question.getQuestion_text());
-        statement.setInt(4, question.getPoints());
-        statement.setTimestamp(5, question.getPosting_time());
+        statement.setTimestamp(4, question.getPosting_time());
     }
 }
