@@ -30,6 +30,9 @@ public class UserService {
         User user = usersDAO.getUserById(userId);
         return new UserDTO(user.getUserId(), user.getUserName(), user.getRegistrationDateTime(), user.getPassword(), user.isChecked());
     }
+    public boolean deleteUser(int userId){
+        return usersDAO.deleteUser(userId);
+    }
 
     public void addNewUser(NewUserDTO user) {
         usersDAO.addUser(user.userName(), user.password());

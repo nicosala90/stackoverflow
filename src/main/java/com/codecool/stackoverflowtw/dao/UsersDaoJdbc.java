@@ -60,7 +60,15 @@ public class UsersDaoJdbc implements UsersDAO {
 
     @Override
     public boolean deleteUser(int userId) {
-        return false;
+        String deleteUser = "DELETE FROM users WHERE user_id = ?";
+        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(deleteUser)) {
+            statement.setInt(1, userId);
+            int rowsDeleted = statement.executeUpdate();
+            System.out.println("User deleted. :) user_id : "+ userId + ".");
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
