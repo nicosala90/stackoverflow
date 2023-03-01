@@ -1,9 +1,6 @@
 package com.codecool.stackoverflowtw;
 
-import com.codecool.stackoverflowtw.dao.AnswersDAO;
-import com.codecool.stackoverflowtw.dao.AnswersDaoJdbc;
-import com.codecool.stackoverflowtw.dao.QuestionsDAO;
-import com.codecool.stackoverflowtw.dao.QuestionsDaoJdbc;
+import com.codecool.stackoverflowtw.dao.*;
 import com.codecool.stackoverflowtw.dao.database.*;
 import com.codecool.stackoverflowtw.dao.model.Question;
 import org.springframework.boot.SpringApplication;
@@ -44,5 +41,16 @@ public class StackoverflowTwApplication {
         TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
         tableInitializer.initialize();
         return new AnswersDaoJdbc(tableInitializer, database);
+    }  @Bean
+    public UsersDAO userDAO() {
+        Database database = new DatabasePSQL(System.getenv("PSQL_URL"), System.getenv("PSQL_USERNAME"), System.getenv("PSQL_PASSWORD"));
+        Map<String, String> tables = Map.of(
+                "users", TableStatements.USER,
+                "questions", TableStatements.QUESTION,
+                "answers", TableStatements.ANSWER
+        );
+        TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
+        tableInitializer.initialize();
+        return new UsersDaoJdbc(tableInitializer, database);
     }
 }
