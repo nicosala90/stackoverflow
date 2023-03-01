@@ -2,6 +2,7 @@ package com.codecool.stackoverflowtw.dao;
 
 import com.codecool.stackoverflowtw.dao.database.Database;
 import com.codecool.stackoverflowtw.dao.database.TableInitializer;
+import com.codecool.stackoverflowtw.dao.model.Question;
 import com.codecool.stackoverflowtw.dao.model.User;
 
 import java.sql.*;
@@ -36,7 +37,20 @@ public class UsersDaoJdbc implements UsersDAO {
 
     @Override
     public User getUserById(int userId) {
-        return null;
+       String userById = "SELECT * FROM users WHERE users.user_id = ?";
+        User user = null;
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(userById)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = toEntity(resultSet);
+            }
+            resultSet.close();
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

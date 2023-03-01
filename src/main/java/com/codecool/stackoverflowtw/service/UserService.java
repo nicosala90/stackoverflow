@@ -26,6 +26,11 @@ public class UserService {
                 .toList();
     }
 
+    public UserDTO getUserById(int userId) {
+        User user = usersDAO.getUserById(userId);
+        return new UserDTO(user.getUserId(), user.getUserName(), user.getRegistrationDateTime(), user.getPassword(), user.isChecked());
+    }
+
     public void addNewUser(NewUserDTO user) {
         usersDAO.addUser(user.userName(), user.password());
     }

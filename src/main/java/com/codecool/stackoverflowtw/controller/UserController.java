@@ -28,4 +28,8 @@ public class UserController {
     public void addNewUser(@RequestBody NewUserDTO user){
         userService.addNewUser(user);
     }
+    @GetMapping("/{userId}")
+    public UserDTO getUserById(@PathVariable int userId){
+        return userService.getUserById(userId);
+    }
 }
