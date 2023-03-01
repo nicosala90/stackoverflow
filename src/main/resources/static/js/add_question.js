@@ -7,7 +7,7 @@ function main() {
 
 function sendNewQuestionData() {
     const questionText = document.getElementById('new-question').value;
-    submitNewQuestion({'text': questionText});
+    submitNewQuestion({'userId': 1, 'questionText': questionText});
 }
 
 function submitNewQuestion(data) {
