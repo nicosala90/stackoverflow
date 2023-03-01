@@ -135,10 +135,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     private void prepare(Question question, PreparedStatement statement) throws SQLException {
-
         statement.setInt(1, question.getUserId());
         statement.setString(2, question.getQuestionText());
         statement.setTimestamp(3, question.getPostingTime());
-
     }
 }
