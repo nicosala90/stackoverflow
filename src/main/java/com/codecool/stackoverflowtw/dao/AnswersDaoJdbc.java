@@ -43,9 +43,9 @@ public class AnswersDaoJdbc implements AnswersDAO {
         String getCountAnswers = "SELECT COUNT(answer_id) AS count_answers FROM answers WHERE question_id = ?";
         try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getCountAnswers)) {
 
-           if(resultSet.next()){
-               return resultSet.getInt("count_answers");
-           }
+            if (resultSet.next()) {
+                return resultSet.getInt("count_answers");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
