@@ -7,5 +7,6 @@ import java.util.List;
 public interface AnswersDAO {
     void postAnswer(String answerText, int id);
     List<Answer> getAllAnswerByQuestion(int questionId);
+    List<Answer> getCountOfAnswerForAQuestion(int id);
     boolean deleteAnswer(int id);
 }
