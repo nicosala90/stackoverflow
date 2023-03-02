@@ -4,7 +4,7 @@ public interface TableStatements {
     String USER = """
             CREATE TABLE IF NOT EXISTS USERS (
                 user_id SERIAL PRIMARY KEY NOT NULL,
-                username CHARACTER VARYING(30),
+                user_name CHARACTER VARYING(30),
                 registration_date TIMESTAMPTZ,
                 password CHARACTER VARYING(30),
                 is_admin BOOLEAN
