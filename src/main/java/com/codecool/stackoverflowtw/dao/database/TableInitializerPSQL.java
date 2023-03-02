@@ -4,25 +4,43 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Map;
 
 public class TableInitializerPSQL implements TableInitializer {
     private final Database database;
-    private final Map<String, String> tables;
+    private final List<String> listOfTables;
 
-    public TableInitializerPSQL(Database database, Map<String, String> tables) {
+    public TableInitializerPSQL(Database database, List<String> listOfTables) {
         this.database = database;
-        this.tables = tables;
+        this.listOfTables = listOfTables;
+    }
+
+    private void create(String command) {
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate(command);
+            System.out.println("Table created");
+        } catch (SQLException ex) {
+            System.err.println("Could not create table");
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
     public void initialize() {
+        for (String command: listOfTables) {
+            create(command);
+        }
+    }
+    /*    @Override
+    public void initialize() {
         tables.entrySet().stream()
                 .filter(table -> !exists(table))
                 .forEach(table -> create(table));
-    }
+    }*/
 
-    private boolean exists(Map.Entry<String, String> table) {
+  /*  private boolean exists(Map.Entry<String, String> table) {
         String tableName = table.getKey();
         try (Connection connection = database.getConnection();
              ResultSet resultSet = connection.getMetaData()
@@ -39,16 +57,5 @@ public class TableInitializerPSQL implements TableInitializer {
             System.err.println("Could not determine whether the table exists: " + tableName);
             throw new RuntimeException(ex);
         }
-    }
-
-    private void create(Map.Entry<String, String> table) {
-        try (Connection connection = database.getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeUpdate(table.getValue());
-            System.out.println("Table created = " + table.getKey());
-        } catch (SQLException ex) {
-            System.err.println("Could not create table: " + table.getKey());
-            throw new RuntimeException(ex);
-        }
-    }
+    }*/
 }

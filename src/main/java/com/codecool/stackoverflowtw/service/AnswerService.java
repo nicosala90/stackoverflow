@@ -18,14 +18,19 @@ public class AnswerService {
     public AnswerService(AnswersDAO answersDAO) {
         this.answersDAO = answersDAO;
     }
-    public List<AnswerDTO> getAllAnswers(int questionId){
+
+    public List<AnswerDTO> getAllAnswers(int questionId) {
         List<Answer> answers = answersDAO.getAllAnswerByQuestion(questionId);
-        return answers.stream().map((answer -> new AnswerDTO(answer.getAnswerId(), answer.getQuestionId(), answer.getUserId(),answer.getAnswerText(), answer.getPostingTime()))).toList();
+        return answers.stream().map((answer -> new AnswerDTO(answer.getAnswerId(), answer.getQuestionId(), answer.getUserId(), answer.getAnswerText(), answer.getPostingTime()))).toList();
     }
-    public void addNewAnswer(NewAnswerDTO answer){
+    public int getAllAnswerToOneQuestion(int questionId){
+        return answersDAO.getCountOfAnswerForAQuestion(questionId);
+    }
+    public void addNewAnswer(NewAnswerDTO answer) {
         answersDAO.postAnswer(answer.answerText(), answer.questionId());
     }
-    public boolean deleteAnswer(int id){
+
+    public boolean deleteAnswer(int id) {
         return answersDAO.deleteAnswer(id);
     }
 }

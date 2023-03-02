@@ -2,7 +2,11 @@ package com.codecool.stackoverflowtw.dao;
 
 import com.codecool.stackoverflowtw.dao.database.Database;
 import com.codecool.stackoverflowtw.dao.model.Answer;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.codecool.stackoverflowtw.dao.model.Question;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,6 +34,19 @@ public class AnswersDaoJdbc implements AnswersDAO {
                 answers.add(answer);
             }
             return answers;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int getCountOfAnswerForAQuestion(int id) {
+        String getCountAnswers = "SELECT COUNT(answer_id) AS count_answers FROM answers WHERE question_id = ?";
+        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getCountAnswers)) {
+
+            if (resultSet.next()) {
+                return resultSet.getInt("count_answers");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
