@@ -1,10 +1,8 @@
 package com.codecool.stackoverflowtw;
 
-import com.codecool.stackoverflowtw.dao.*;
-import com.codecool.stackoverflowtw.dao.database.*;
-import com.codecool.stackoverflowtw.dao.model.Question;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import org.springframework.context.annotation.Bean;
 
 import java.sql.Timestamp;
@@ -12,12 +10,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @SpringBootApplication
 public class StackoverflowTwApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(StackoverflowTwApplication.class, args);
     }
+
 
     @Bean
     public QuestionsDAO questionsDAO() {
@@ -72,4 +72,5 @@ public class StackoverflowTwApplication {
         tableInitializer.initialize();
         return new UsersDaoJdbc(tableInitializer, database);
     }
+
 }
