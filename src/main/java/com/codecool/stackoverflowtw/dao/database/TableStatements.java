@@ -60,5 +60,8 @@ String DROPCONSTRAINTANSWERUSERID = """
     String DROPCONSTRAINTANSWERQUESTIONRID = """
         ALTER TABLE ANSWERS DROP CONSTRAINT IF EXISTS fk_answer_question;
         """;
+    String INSERTUSERS = """
+            INSERT 
+            """;
 
 }

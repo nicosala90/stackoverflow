@@ -76,7 +76,7 @@ public class UsersDaoJdbc implements UsersDAO {
     }
 
     public void post(User user) {
-        String template = "INSERT INTO users(id, user_name,registration_date, password, is_admin) values(?,?,?,?,?) ";
+        String template = "INSERT INTO users(id, user_name,registration_date, password, is_admin) values(DEFAULT,?,?,?,?) ";
         try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(template)) {
             prepare(user, statement);
             statement.executeUpdate();
@@ -94,11 +94,11 @@ public class UsersDaoJdbc implements UsersDAO {
     }
 
     private void prepare(User user, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, user.getUserId());
-        statement.setString(2, user.getUserName());
-        statement.setTimestamp(3, user.getRegistrationDateTime());
-        statement.setString(4, user.getPassword());
-        statement.setBoolean(5, user.isChecked());
+       /* statement.setInt(1, user.getUserId());*/
+        statement.setString(1, user.getUserName());
+        statement.setTimestamp(2, user.getRegistrationDateTime());
+        statement.setString(3, user.getPassword());
+        statement.setBoolean(4, user.isChecked());
 
     }
 }
