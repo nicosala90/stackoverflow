@@ -25,6 +25,9 @@ public class StackoverflowTwApplication {
         Map<String, String> tables = Map.of(
                 "users", TableStatements.USER,
                 "questions", TableStatements.QUESTION,
+                "answers", TableStatements.ANSWER,
+                "fk", TableStatements.ANSWER,
+                "answers", TableStatements.ANSWER,
                 "answers", TableStatements.ANSWER
         );
 

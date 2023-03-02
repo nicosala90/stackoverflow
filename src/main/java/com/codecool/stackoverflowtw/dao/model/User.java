@@ -4,29 +4,29 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class User {
-    private int userId;
-    private String userName;
-    private String userPassword;
+    private int id;
+    private String name;
+    private String password;
     private Timestamp registrationDateTime;
     private boolean isChecked;
 
     public User(String userName,String userPassword, Timestamp registrationDateTime) {
-        this.userName = userName;
-        this.userPassword = userPassword;
+        this.name = userName;
+        this.password = userPassword;
         this.registrationDateTime = registrationDateTime;
         this.isChecked = false;
     }
 
-    public int getUserId() {
-        return userId;
+     public int getUserId() {
+        return id;
     }
 
     public String getUserName() {
-        return userName;
+        return name;
     }
 
     public String getUserPassword() {
-        return userPassword;
+        return password;
     }
 
     public Timestamp getRegistrationDateTime() {
