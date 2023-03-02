@@ -60,7 +60,7 @@ public class UsersDaoJdbc implements UsersDAO {
 
     @Override
     public boolean deleteUser(int userId) {
-        String deleteUser = "DELETE FROM users WHERE user_id = ?";
+        String deleteUser = "DELETE FROM users WHERE id = ?";
         try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(deleteUser)) {
             statement.setInt(1, userId);
             int rowsDeleted = statement.executeUpdate();
@@ -79,7 +79,7 @@ public class UsersDaoJdbc implements UsersDAO {
     }
 
     public void post(User user) {
-        String template = "INSERT INTO users(user_id, username,registration_date, password, is_admin) values(?,?,?,?,?) ";
+        String template = "INSERT INTO users(id, user_name,registration_date, password, is_admin) values(?,?,?,?,?) ";
         try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(template)) {
             prepare(user, statement);
             statement.executeUpdate();
@@ -90,7 +90,7 @@ public class UsersDaoJdbc implements UsersDAO {
     }
 
     private User toEntity(ResultSet resultSet) throws SQLException {
-        return new User(resultSet.getInt("user_id"), resultSet.getString("username"),
+        return new User(resultSet.getInt("id"), resultSet.getString("user_name"),
                 resultSet.getTimestamp("registration_date"),
                 resultSet.getString("password"),
                 resultSet.getBoolean("is_admin"));
