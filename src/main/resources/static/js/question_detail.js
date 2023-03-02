@@ -2,14 +2,22 @@ import {html_factory} from "./html_factory.js";
 import {data_handler} from "./data_handler.js";
 
 function main() {
-    loadQuestionDetail();
+    let questionId = document.location.pathname.split("/question")[1];
+    loadQuestionDetail(questionId);
+    loadAnswerList(questionId);
+    addNewAnswerClickListener(questionId);
 }
 
-function loadQuestionDetail() {
-    let questionId = document.location.pathname.split("/question")[1];
+function loadQuestionDetail(questionId) {
     data_handler
         .apiGet(`api/questions/${questionId}`)
         .then(data => displayQuestion(data))
+}
+
+function loadAnswerList(questionId) {
+    data_handler
+        .apiGet(`api/answers/${questionId}/all`)
+        .then(data => displayAnswers(data))
 }
 
 function displayQuestion(question) {
@@ -21,10 +29,19 @@ function displayQuestion(question) {
     questionDate.textContent = question['posting_time']
     const questionText = document.getElementById('question-text');
     questionText.textContent = question['question_text']
+}
 
+function displayAnswers(answers) {
     const answersTable = document.getElementById('result-table');
-    const answersTbody = html_factory.createTableContent(Object.entries(question.answersList), ['posting_time', 'question_text']);
+    const answersTbody = html_factory.createTableContent(answers, ['answerId', 'questionId', 'userId', 'answerText', 'postingTime'], 'answerId');
     answersTable.insertAdjacentElement('beforeend', answersTbody);
+}
+
+function addNewAnswerClickListener(questionId) {
+    const newAnswerButton = document.getElementById('new-answer-button');
+    newAnswerButton.addEventListener('click', () => {
+        document.location = `/new-answer${questionId}`;
+    })
 }
 
 main();

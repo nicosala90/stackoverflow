@@ -28,5 +28,10 @@ public class IndexController {
     public String newQuestion() {
         return "add_question";
     }
+
+    @GetMapping("/new-answer{questionId}")
+    public String newAnswer(@PathVariable int questionId) {
+        return "add_answer";
+    }
 }
 

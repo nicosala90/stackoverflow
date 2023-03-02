@@ -14,7 +14,7 @@ function loadQuestionsList() {
 
 function displayQuestions(questionsList) {
     const questionsTable = document.getElementById('result-table');
-    const questionsTbody = html_factory.createTableContent(questionsList, ['posting_time', 'question_text']);
+    const questionsTbody = html_factory.createTableContent(questionsList, ['posting_time', 'question_text'],'question_id');
     questionsTable.insertAdjacentElement('beforeend', questionsTbody);
 }
 
