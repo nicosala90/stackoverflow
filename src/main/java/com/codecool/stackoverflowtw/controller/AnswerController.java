@@ -18,15 +18,21 @@ public class AnswerController {
     public AnswerController(AnswerService answerService) {
         this.answerService = answerService;
     }
+
     @PostMapping("/")
     public void addNewAnswer(@RequestBody NewAnswerDTO answer) {
         answerService.addNewAnswer(answer);
     }
 
+    @GetMapping("/answerCount/{id}")
+    public int getCountOfAnswerToAQuestion(@PathVariable int id){
+        return answerService.getAllAnswerToOneQuestion(id);
+    }
     @GetMapping("/{id}/all")
     public List<AnswerDTO> getAllAnswersByQuestion(@PathVariable int id) {
         return answerService.getAllAnswers(id);
     }
+
     @DeleteMapping("/{id}")
     public boolean deleteAnswer(@PathVariable int id) {
         return answerService.deleteAnswer(id);

@@ -3,8 +3,8 @@ package com.codecool.stackoverflowtw.dao.database;
 public interface TableStatements {
     String USER = """
             CREATE TABLE IF NOT EXISTS USERS (
-                user_id SERIAL PRIMARY KEY NOT NULL,
-                username CHARACTER VARYING(30),
+                id SERIAL PRIMARY KEY NOT NULL,
+                user_name CHARACTER VARYING(30),
                 registration_date TIMESTAMPTZ,
                 password CHARACTER VARYING(30),
                 is_admin BOOLEAN
@@ -13,7 +13,7 @@ public interface TableStatements {
     String QUESTION = """
             CREATE TABLE IF NOT EXISTS QUESTIONS (
                 question_id SERIAL PRIMARY KEY NOT NULL,
-                user_id INTEGER,
+                user_id int,
                 question_text TEXT,
                 posting_time TIMESTAMPTZ
             );
@@ -22,26 +22,46 @@ public interface TableStatements {
     String ANSWER = """
             CREATE TABLE IF NOT EXISTS ANSWERS (
                 answer_id SERIAL PRIMARY KEY NOT NULL,
-                user_id SERIAL REFERENCES users(user_id),
+                user_id int,
                 answer_text TEXT,
-                question_id SERIAL REFERENCES questions(question_id),
+                question_id int,
                 posting_time TIMESTAMPTZ
             );
             """;
 
 
-    String QUESTIONFOREIGHNKEYS = """
-         ALTER TABLE QUESTIONS
-                 ADD CONSTRAINT fk_orders_customers FOREIGN KEY (customer_id) REFERENCES customers (id);
-                user_id SERIAL REFERENCES users(user_id),
-            );
-            """;
+    String QUESTIONFOREIGHNKEYSUSERID = """
+            ALTER TABLE QUESTIONS
+                    ADD CONSTRAINT fk_question_user FOREIGN KEY (user_id) REFERENCES users (id) 
+                    ON DELETE CASCADE;
+                                
+               """;
 
-    String ANSWERFOREIGHNKEYS = """
-         ALTER TABLE ANSWER
-                 ADD CONSTRAINT fk_orders_answers FOREIGN KEY (customer_id) REFERENCES customers (id);
-                user_id SERIAL REFERENCES users(user_id),
-            );
+    String ANSWERFOREIGHNKEYSUSERID = """
+            ALTER TABLE ANSWERS 
+                    ADD CONSTRAINT fk_answer_user FOREIGN KEY (user_id) REFERENCES users (id) 
+                    ON DELETE CASCADE;
+               
+               """;
+
+    String ANSWERFOREIGHNKEYSQUESTIONID = """
+            ALTER TABLE ANSWERS
+                    ADD CONSTRAINT fk_answer_question FOREIGN KEY (question_id) REFERENCES questions (question_id) 
+                    ON DELETE CASCADE;
+              
+               """;
+String DROPCONSTRAINTQUESTIONUSERID = """
+            ALTER TABLE QUESTIONS DROP CONSTRAINT IF EXISTS fk_question_user;
+        """;
+String DROPCONSTRAINTANSWERUSERID = """
+        ALTER TABLE ANSWERS DROP CONSTRAINT IF EXISTS fk_answer_user;
+        """;
+
+    String DROPCONSTRAINTANSWERQUESTIONRID = """
+        ALTER TABLE ANSWERS DROP CONSTRAINT IF EXISTS fk_answer_question;
+        """;
+    String INSERTUSERS = """
+            INSERT 
             """;
 
 }

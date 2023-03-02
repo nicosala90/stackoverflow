@@ -1,8 +1,8 @@
 package com.codecool.stackoverflowtw.dao;
 
 import com.codecool.stackoverflowtw.dao.database.Database;
-import com.codecool.stackoverflowtw.dao.database.TableInitializer;
 import com.codecool.stackoverflowtw.dao.model.Question;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,11 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 public class QuestionsDaoJdbc implements QuestionsDAO {
-    private final TableInitializer tableInitializer;
     private final Database database;
 
-    public QuestionsDaoJdbc(TableInitializer tableInitializer, Database database) {
-        this.tableInitializer = tableInitializer;
+    @Autowired
+    public QuestionsDaoJdbc(Database database) {
         this.database = database;
     }
 
@@ -104,7 +103,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(deleteQuestion)) {
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
-            System.out.println("Question deleted. :) question_id : "+id+".");
+            System.out.println("Question deleted. :) question_id : " + id + ".");
             return rowsDeleted > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
