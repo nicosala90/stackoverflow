@@ -39,15 +39,13 @@ public class AnswersDaoJdbc implements AnswersDAO {
     }
 
     @Override
-    public List<Answer> getCountOfAnswerForAQuestion(int id) {
-        String getCountAnswers = "SELECT answer_id FROM answers WHERE question_id = ?";
+    public int getCountOfAnswerForAQuestion(int id) {
+        String getCountAnswers = "SELECT COUNT(answer_id) AS count_answers FROM answers WHERE question_id = ?";
         try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getCountAnswers)) {
-            List<Answer> answerList = new ArrayList<>();
-            while (resultSet.next()) {
-                Answer answer = toEntity(resultSet);
-                answerList.add(answer);
-            }
-            return answerList;
+
+           if(resultSet.next()){
+               return resultSet.getInt("count_answers");
+           }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -24,8 +24,7 @@ public class AnswerService {
         return answers.stream().map((answer -> new AnswerDTO(answer.getAnswerId(), answer.getQuestionId(), answer.getUserId(), answer.getAnswerText(), answer.getPostingTime()))).toList();
     }
     public int getAllAnswerToOneQuestion(int questionId){
-        List<Answer> answers = answersDAO.getCountOfAnswerForAQuestion(questionId);
-        return answers.size();
+        return answersDAO.getCountOfAnswerForAQuestion(questionId);
     }
     public void addNewAnswer(NewAnswerDTO answer) {
         answersDAO.postAnswer(answer.answerText(), answer.questionId());
