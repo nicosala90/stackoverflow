@@ -51,7 +51,7 @@ public class AnswersDaoJdbc implements AnswersDAO {
 
     @Override
     public boolean deleteAnswer(int id) {
-        String deleteAnswer = "DELETE FROM questions WHERE answer_id = ?";
+        String deleteAnswer = "DELETE FROM answers WHERE answer_id = ?";
         try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(deleteAnswer)) {
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
