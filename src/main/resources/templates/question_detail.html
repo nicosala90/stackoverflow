@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Question Detail</title>
+	<link href="css/site.css" rel="stylesheet" type="text/css">
+	<script defer src="js/question_detail.js" type="module"></script>
+	<link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" rel="stylesheet">
+	<link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" rel="stylesheet">
+</head>
+<body>
+<h2>
+	<a href="/question-list">
+		<i class="icon fas fa-arrow-left"></i>
+	</a>
+	Question Detail
+</h2>
+<div class="card">
+	<div>
+		<h4>Question id</h4>
+		<p id="question-id"></p>
+		<h4>User id</h4>
+		<p id="user-id"></p>
+		<h4>Date</h4>
+		<p id="question-date"></p>
+		<h4>Title</h4>
+		<p id="question-text"></p>
+	</div>
+	<table id="result-table">
+		<thead>
+		<tr>
+			<th>Answer id</th>
+			<th>Question id</th>
+			<th>User id</th>
+			<th>Answer</th>
+			<th>Date</th>
+			<th class="action-column center">Delete</th>
+		</tr>
+		</thead>
+	</table>
+</div>
+<div class="container">
+	<div class="card">
+		<a id="new-answer-button">Add new answer</a>
+	</div>
+</div>
+</body>
+</html>

@@ -4,7 +4,7 @@ public interface TableStatements {
     String USER = """
             CREATE TABLE IF NOT EXISTS USERS (
                 id SERIAL PRIMARY KEY NOT NULL,
-                name CHARACTER VARYING(30),
+                user_name CHARACTER VARYING(30),
                 registration_date TIMESTAMPTZ,
                 password CHARACTER VARYING(30),
                 is_admin BOOLEAN
@@ -33,21 +33,20 @@ public interface TableStatements {
     String QUESTIONFOREIGHNKEYSUSERID = """
             ALTER TABLE QUESTIONS
                     ADD CONSTRAINT fk_question_user FOREIGN KEY (user_id) REFERENCES users (id) 
-                    ON DELETE CASCADE;
-                                );
+                    ON DELETE CASCADE;             
                """;
 
     String ANSWERFOREIGHNKEYSUSERID = """
-            ALTER TABLE ANSWERS
+            ALTER TABLE ANSWERS 
                     ADD CONSTRAINT fk_answer_user FOREIGN KEY (user_id) REFERENCES users (id) 
                     ON DELETE CASCADE;
-               );
+               
                """;
 
     String ANSWERFOREIGHNKEYSQUESTIONID = """
             ALTER TABLE ANSWERS
-                    ADD CONSTRAINT fk_answer_question FOREIGN KEY (question_id) REFERENCES questions (id) 
+                    ADD CONSTRAINT fk_answer_question FOREIGN KEY (question_id) REFERENCES questions (question_id) 
                     ON DELETE CASCADE;
-               );
+              
                """;
 }

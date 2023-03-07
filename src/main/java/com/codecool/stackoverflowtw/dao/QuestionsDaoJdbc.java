@@ -1,8 +1,8 @@
 package com.codecool.stackoverflowtw.dao;
 
 import com.codecool.stackoverflowtw.dao.database.Database;
-import com.codecool.stackoverflowtw.dao.database.TableInitializer;
 import com.codecool.stackoverflowtw.dao.model.Question;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,11 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 public class QuestionsDaoJdbc implements QuestionsDAO {
-    private final TableInitializer tableInitializer;
     private final Database database;
 
-    public QuestionsDaoJdbc(TableInitializer tableInitializer, Database database) {
-        this.tableInitializer = tableInitializer;
+    @Autowired
+    public QuestionsDaoJdbc(Database database) {
         this.database = database;
     }
 
@@ -84,7 +83,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     public Question getQuestionById(int id) {
         String getQuestions = "SELECT * FROM questions WHERE questions.question_id = ?";
         Question question = null;
-        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(getQuestions)) {
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(getQuestions)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -103,7 +103,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(deleteQuestion)) {
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
-            System.out.println("Question deleted. :) question_id : "+id+".");
+            System.out.println("Question deleted. :) question_id : " + id + ".");
             return rowsDeleted > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -119,6 +119,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         Date date = new Date();
         Question newQuestion = new Question(userId, questionText, new Timestamp(date.getTime()));
         post(newQuestion);
+
     }
 
     public void post(Question question) {
@@ -133,8 +134,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     private void prepare(Question question, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, question.getUser_id());
-        statement.setString(2, question.getQuestion_text());
-        statement.setTimestamp(3, question.getPosting_time());
+        statement.setInt(1, question.getUserId());
+        statement.setString(2, question.getQuestionText());
+        statement.setTimestamp(3, question.getPostingTime());
     }
 }

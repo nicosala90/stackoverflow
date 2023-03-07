@@ -1,20 +1,27 @@
 package com.codecool.stackoverflowtw.dao.model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class User {
-    private int id;
-    private String name;
-    private String password;
+
+    private int userId;
+    private String userName;
     private Timestamp registrationDateTime;
+    private String password;
     private boolean isChecked;
 
     public User(String userName,String userPassword, Timestamp registrationDateTime) {
         this.name = userName;
         this.password = userPassword;
         this.registrationDateTime = registrationDateTime;
-        this.isChecked = false;
+    }
+
+    public User(int userId, String userName, Timestamp registrationDateTime, String password, boolean isChecked) {
+        this.userId = userId;
+        this.userName = userName;
+        this.registrationDateTime = registrationDateTime;
+        this.password = password;
+        this.isChecked = isChecked;
     }
 
      public int getUserId() {
@@ -25,7 +32,8 @@ public class User {
         return name;
     }
 
-    public String getUserPassword() {
+
+    public String getPassword() {
         return password;
     }
 
