@@ -33,8 +33,7 @@ public interface TableStatements {
     String QUESTIONFOREIGHNKEYSUSERID = """
             ALTER TABLE QUESTIONS
                     ADD CONSTRAINT fk_question_user FOREIGN KEY (user_id) REFERENCES users (id) 
-                    ON DELETE CASCADE;
-                                
+                    ON DELETE CASCADE;             
                """;
 
     String ANSWERFOREIGHNKEYSUSERID = """
@@ -50,18 +49,4 @@ public interface TableStatements {
                     ON DELETE CASCADE;
               
                """;
-String DROPCONSTRAINTQUESTIONUSERID = """
-            ALTER TABLE QUESTIONS DROP CONSTRAINT IF EXISTS fk_question_user;
-        """;
-String DROPCONSTRAINTANSWERUSERID = """
-        ALTER TABLE ANSWERS DROP CONSTRAINT IF EXISTS fk_answer_user;
-        """;
-
-    String DROPCONSTRAINTANSWERQUESTIONRID = """
-        ALTER TABLE ANSWERS DROP CONSTRAINT IF EXISTS fk_answer_question;
-        """;
-    String INSERTUSERS = """
-            INSERT 
-            """;
-
 }
