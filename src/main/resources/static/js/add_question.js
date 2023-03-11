@@ -13,9 +13,11 @@ function sendNewQuestionData() {
 function submitNewQuestion(data) {
     data_handler
         .apiPost('api/questions/', data)
-        .then(result => showResult(result, data.questionText));
+    //.then(result => showResult(result, data.questionText));
+    document.location = '/';
 }
 
+/*
 function showResult(result, name) {
     const submitResult = document.getElementById('submit-result');
     submitResult.classList = [];
@@ -28,5 +30,6 @@ function showResult(result, name) {
         submitResult.classList.add('red');
     }
 }
+*/
 
 main();

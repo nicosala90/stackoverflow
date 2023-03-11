@@ -17,16 +17,23 @@ public class DataSourceConfiguration {
                 System.getenv("PSQL_PASSWORD"));
 
         List<String> tables = List.of(
+
+                // FOR TABLE CLEAR PLEASE COMMENT OFF 3 LINES BELOW !!!
+/*                TableStatements.DROPANSWERTABLE,
+                TableStatements.DROPQUESTIONTABLE,
+                TableStatements.DROPUSERTABLE,*/
+
                 TableStatements.USER,
                 TableStatements.QUESTION,
                 TableStatements.ANSWER,
                 TableStatements.DROPCONSTRAINTQUESTIONUSERID,
                 TableStatements.DROPCONSTRAINTANSWERUSERID,
-                TableStatements.DROPCONSTRAINTANSWERQUESTIONRID,
+                TableStatements.DROPCONSTRAINTANSWERQUESTIONID,
                 TableStatements.ANSWERFOREIGHNKEYSUSERID,
                 TableStatements.QUESTIONFOREIGHNKEYSUSERID,
                 TableStatements.ANSWERFOREIGHNKEYSQUESTIONID
         );
+
         TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
         tableInitializer.initialize();
         return database;

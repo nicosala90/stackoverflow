@@ -1,8 +1,8 @@
-package com.codecool.stackoverflowtw.controller;
+package com.codecool.stackoverflowtw.controller.dto.controller;
 
 
-import com.codecool.stackoverflowtw.controller.dto.NewUserDTO;
-import com.codecool.stackoverflowtw.controller.dto.UserDTO;
+import com.codecool.stackoverflowtw.controller.dto.user.NewUserDTO;
+import com.codecool.stackoverflowtw.controller.dto.user.UserDTO;
 import com.codecool.stackoverflowtw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,21 +19,23 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/")
+    public void addNewUser(@RequestBody NewUserDTO user) {
+        userService.addNewUser(user);
+    }
+
     @GetMapping("/all")
     public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/")
-    public void addNewUser(@RequestBody NewUserDTO user){
-        userService.addNewUser(user);
-    }
     @GetMapping("/{userId}")
-    public UserDTO getUserById(@PathVariable int userId){
+    public UserDTO getUserById(@PathVariable int userId) {
         return userService.getUserById(userId);
     }
-    @DeleteMapping("/{id}")
-    public boolean deleteUser(@PathVariable int id){
-        return userService.deleteUser(id);
+
+    @DeleteMapping("/{userId}")
+    public boolean deleteUser(@PathVariable int userId) {
+        return userService.deleteUser(userId);
     }
 }

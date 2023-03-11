@@ -9,6 +9,20 @@ export let html_factory = {
                 let keyTd = itemRow.insertCell();
                 keyTd.textContent = item[key];
             }
+            for (let i = 0; i < 2; i++) {
+
+                let adminSetter = itemRow.insertCell();
+                adminSetter.classList.add('center');
+                adminSetter.innerHTML = '' +
+                    '      <form id="userCheck"+i action="/action_user_status_check">\n' +
+                    '            <select name="isAdmin" id="isAdmin">\n' +
+                    '                <option value=""></option>\n' +
+                    '                <option value="false">false</option>\n' +
+                    '                <option value="true">true</option>\n' +
+                    '            </select>\n' +
+                    '        </form>';
+            }
+
             let deleteTd = itemRow.insertCell();
             deleteTd.classList.add('center');
             deleteTd.innerHTML = `<i class="icon black fas fa-trash" data-id="${item[idKey]}"></i>`

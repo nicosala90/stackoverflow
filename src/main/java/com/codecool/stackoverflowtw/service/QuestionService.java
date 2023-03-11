@@ -1,7 +1,7 @@
 package com.codecool.stackoverflowtw.service;
 
-import com.codecool.stackoverflowtw.controller.dto.NewQuestionDTO;
-import com.codecool.stackoverflowtw.controller.dto.QuestionDTO;
+import com.codecool.stackoverflowtw.controller.dto.question.NewQuestionDTO;
+import com.codecool.stackoverflowtw.controller.dto.question.QuestionDTO;
 import com.codecool.stackoverflowtw.dao.QuestionsDAO;
 import com.codecool.stackoverflowtw.dao.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;

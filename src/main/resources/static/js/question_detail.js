@@ -21,6 +21,7 @@ function loadAnswerList(questionId) {
 }
 
 function displayQuestion(question) {
+    console.log(question)
     const questionId = document.getElementById('question-id');
     questionId.textContent = question['question_id']
     const userId = document.getElementById('user-id');
