@@ -5,34 +5,34 @@ import java.sql.Timestamp;
 public class User {
     private int userId;
     private String userName;
-    private String password;
+    private String userPassword;
     private String userEmail;
     private Timestamp registrationDateTime;
     private boolean isAdmin;
     private boolean isRejected;
 
-    public User(int userId, String userName, String password, String userEmail, Timestamp registrationDateTime, boolean isAdmin) {
+    public User(int userId, String userName, String userPassword, String userEmail, Timestamp registrationDateTime, boolean isAdmin) {
         this.userId = userId;
         this.userName = userName;
-        this.password = password;
+        this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.registrationDateTime = registrationDateTime;
         this.isAdmin = isAdmin;
         this.isRejected = isRejected;
     }
-    public User(int userId, String userName, String password, String userEmail, Timestamp registrationDateTime, boolean isAdmin, boolean isRejected) {
+    public User(int userId, String userName, String userPassword, String userEmail, Timestamp registrationDateTime, boolean isAdmin, boolean isRejected) {
         this.userId = userId;
         this.userName = userName;
-        this.password = password;
+        this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.registrationDateTime = registrationDateTime;
         this.isAdmin = isAdmin;
         this.isRejected = isRejected;
     }
 
-    public User(String userName, String password, String userEmail, Timestamp registrationDateTime) {
+    public User(String userName, String userPassword, String userEmail, Timestamp registrationDateTime) {
         this.userName = userName;
-        this.password = password;
+        this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.registrationDateTime = registrationDateTime;
         this.isAdmin = false;
@@ -46,8 +46,8 @@ public class User {
     public String getUserName() {
         return userName;
     }
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
     public String getUserEmail() {
         return userEmail;
@@ -61,8 +61,8 @@ public class User {
     public boolean isRejected() {
         return isRejected;
     }
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
     public void setEmail(String userEmail) {
         this.userEmail = userEmail;

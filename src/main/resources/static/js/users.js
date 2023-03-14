@@ -1,48 +1,54 @@
-import {html_factory} from "./html_factory.js";
 import {data_handler} from "./data_handler.js";
+import {html_factory} from "./html_factory.js";
 
 function main() {
     loadUsersList();
 }
 
-function loadUsersList() {
+function loadUsersList(sorterColumn) {
+
+    //TODO data sorter
+    //let columnSorter = sorterColumn === "" ? "userId" : sorterColumn;
+    // .then(data => displayUsers(data.stream().sort(columnSorter)))
+
     data_handler
         .apiGet('api/users/all')
-        .then(data => displayUsers(data))
-        .then(() => addClickListeners());
+        .then(data => {
+            displayUsers(data)
+            addClickListeners(data)
+        })
+        //.then(() => addClickListeners());
 }
 
 function displayUsers(usersList) {
-    usersList.map(element => element[Object.keys(element)[3]] = Object.values(element)[3].toString().substring(0, 10));
+    const pageTitle = document.getElementById("page-title");
+    pageTitle.style.color = "white";
+    pageTitle.innerHTML = "USERS LIST (sorted by userId)";
+    usersList.map(element => element[Object.keys(element)[4]] = Object.values(element)[4].toString().substring(0, 10));
+    usersList.map(element => element[Object.keys(element)[5]] = Object.values(element)[5].toString().toUpperCase());
     const usersTable = document.getElementById('result-table');
-    const usersTbody = html_factory.createTableContent(usersList, ['userId', 'userName', 'password', 'userEmail', 'registrationDateTime', 'isAdmin', 'isRejected'], 'userId');
+    const usersTbody = html_factory.createTableContent(usersList, ['userId', 'userName', 'userPassword', 'userEmail', 'registrationDateTime', 'isAdmin', 'isRejected'], 'userId');
     usersTable.insertAdjacentElement('beforeend', usersTbody);
 }
 
-function addClickListeners() {
-    const userTitleElementList = document.getElementsByClassName('item, fa-trash');
-    for (let nameElement of userTitleElementList) {
-        nameElement.addEventListener('click', () => {
-            const userId = nameElement.id;
-            console.log('id clicked ' + userId);
-            document.location = `/user${userId}`;
-        })
-    }
-
+function addClickListeners(data) {
     const deleteButtons = document.getElementsByClassName('fa-trash');
     for (let deleteButton of deleteButtons) {
         deleteButton.addEventListener('click',
-            (event) => handleItemDeletion(event));
+            (event) => handleItemDeletion(event,data));
     }
 }
 
-function handleItemDeletion(event) {
+function handleItemDeletion(event,data) {
+    let item = Object.keys(data).length;
     const userId = event.target.dataset['id'];
     event.stopImmediatePropagation();
     data_handler.apiDelete(`api/users/${userId}`)
         .then(response => {
-            if (response === 200)
-                removeDeletedItem(userId)
+            if (response === 200 && item>1 && data) {
+                removeDeletedItem(userId);
+                document.location = `/user-list-for-admin`;
+            }
         });
 }
 

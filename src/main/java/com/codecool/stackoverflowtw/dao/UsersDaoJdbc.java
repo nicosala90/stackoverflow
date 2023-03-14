@@ -35,9 +35,10 @@ public class UsersDaoJdbc implements UsersDAO {
 
     @Override
     public User getUserById(int userId) {
-        String userById = "SELECT * FROM users WHERE users.user_id = ?";
+        String userById = "SELECT * FROM users WHERE users.id = ?";
         User user = null;
-        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(userById)) {
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(userById)) {
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -76,12 +77,18 @@ public class UsersDaoJdbc implements UsersDAO {
     public void addUser(String userName, String userPassword, String email) {
         Date date = new Date();
         User newUser = new User(userName, userPassword, email, new Timestamp(date.getTime()));
-
         post(newUser);
     }
 
+    @Override
+    public void addFirstAdminUser(String userName, String userPassword, String userEmail) {
+        Date date = new Date();
+        User mainAdminUser = new User(1, userName, userPassword, userEmail, new Timestamp(date.getTime()), true, false);
+        post(mainAdminUser);
+    }
+
     public void post(User user) {
-        String template = "INSERT INTO users(id, user_name,password, user_email, registration_date,  is_admin, is_rejected) values(DEFAULT,?,?,?,?,?,?) ";
+        String template = "INSERT INTO users(id, user_name,user_password, user_email, registration_date,  is_admin, is_rejected) values(DEFAULT,?,?,?,?,?,?) ";
         try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(template)) {
             prepare(user, statement);
             statement.executeUpdate();
@@ -92,13 +99,13 @@ public class UsersDaoJdbc implements UsersDAO {
     }
 
     private User toEntity(ResultSet resultSet) throws SQLException {
-        return new User(resultSet.getInt("id"), resultSet.getString("user_name"), resultSet.getString("password"), resultSet.getString("user_email"), resultSet.getTimestamp("registration_date"), resultSet.getBoolean("is_admin"));
+        return new User(resultSet.getInt("id"), resultSet.getString("user_name"), resultSet.getString("user_email"), resultSet.getString("user_password"), resultSet.getTimestamp("registration_date"), resultSet.getBoolean("is_admin"), resultSet.getBoolean("is_rejected"));
     }
 
     private void prepare(User user, PreparedStatement statement) throws SQLException {
         /* statement.setInt(1, user.getUserId());*/
         statement.setString(1, user.getUserName());
-        statement.setString(2, user.getPassword());
+        statement.setString(2, user.getUserPassword());
         statement.setString(3, user.getUserEmail());
         statement.setTimestamp(4, user.getRegistrationDateTime());
         statement.setBoolean(5, user.isAdmin());

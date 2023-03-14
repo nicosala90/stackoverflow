@@ -4,27 +4,32 @@
     <meta charset="UTF-8">
     <title>Main page</title>
     <link href="css/site.css" rel="stylesheet" type="text/css">
-    <script src="js/user_authentication.js" type="module"></script>
+    <script src="js/create_new_user.js" type="module"></script>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css"
+          rel="stylesheet">
 </head>
 <body>
 <h2>Stackoverflow APP USER WINDOW</h2>
 <h2>
-    <a href="/">
-        <i class="icon fas fa-arrow-left"></i>
+    <a href="/new-user">
+        <i class="icon fas fa-arrow-left"></i> Create new user</a>
+        <p id="page-title"></p>
     </a>
 
 </h2>
 <div class="card base-margin, user-input">
-    <label for="new-user">User name</label><br>
-    <input type="text" id="new-user" name="user-name" maxlength="30" required><br>
-    <label for="new-user">Password</label><br>
-    <input type="password" id="new-password" name="user-password" maxlength="30" required><br>
+    <label for="user-name">User name</label><br>
+    <input type="text" id="user-name" name="user-name" maxlength="30" required><br>
+    <label for="user-name">Password</label><br>
+    <input type="password" id="user-password" name="user-password" maxlength="30" required><br>
     <div id="email-address" hidden>
-        <label for="new-user">Email</label><br>
-        <input type="email" id="new-email" name="user-password" maxlength="30"><br>
+        <label for="user-name">Email</label><br>
+        <input type="email" id="new-email" name="user-email" maxlength="30"><br>
     </div>
     <button id="submit-button">Submit</button>
     <p class="hide" id="submit-result"></p>
+    <p class="hide" id="message"></p>
 </div>
 
 </body>

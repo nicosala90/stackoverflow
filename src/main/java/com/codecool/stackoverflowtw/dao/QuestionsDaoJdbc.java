@@ -20,7 +20,9 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public List<Question> getAllQuestions() {
         String getAllQuestions = "SELECT * FROM questions";
-        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getAllQuestions)) {
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(getAllQuestions)) {
             List<Question> questions = new ArrayList<>();
             while (resultSet.next()) {
                 Question question = toEntity(resultSet);
@@ -35,7 +37,9 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public List<Question> getAllQuestionSortByAlphabet() {
         String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.question_text ASC";
-        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
             List<Question> questions = new ArrayList<>();
             while (resultSet.next()) {
                 Question question = toEntity(resultSet);
@@ -50,7 +54,9 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public List<Question> getAllQuestionSortByDate() {
         String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.posting_time ASC";
-        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
             List<Question> questions = new ArrayList<>();
             while (resultSet.next()) {
                 Question question = toEntity(resultSet);
@@ -67,7 +73,9 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         //TODO
         //String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.question_count ASC";
         String getAllQuestionsSortingBy = "SELECT * FROM questions ORDER BY questions.question_id ASC";
-        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(getAllQuestionsSortingBy)) {
             List<Question> questions = new ArrayList<>();
             while (resultSet.next()) {
                 Question question = toEntity(resultSet);
@@ -100,7 +108,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public boolean deleteQuestionById(int id) {
         String deleteQuestion = "DELETE FROM questions WHERE question_id = ?";
-        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(deleteQuestion)) {
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuestion)) {
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
             System.out.println("Question deleted. :) question_id : " + id + ".");
@@ -111,7 +120,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     private Question toEntity(ResultSet resultSet) throws SQLException {
-        return new Question(resultSet.getInt("question_id"), resultSet.getInt("user_id"), resultSet.getString("question_text"), resultSet.getTimestamp("posting_time"));
+        return new Question(resultSet.getInt("question_id"), resultSet.getInt("user_id"),
+                resultSet.getString("question_text"), resultSet.getTimestamp("posting_time"));
     }
 
     @Override
@@ -123,8 +133,9 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     public void post(Question question) {
-        String template = "INSERT INTO questions(question_id, user_id, question_text, posting_time) values(DEFAULT,?,?,?) ";
-        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(template)) {
+        String template = "INSERT INTO questions(question_id, user_id, question_text, posting_time, is_checked, is_rejected) values(DEFAULT,?,?,?,?,?) ";
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(template)) {
             prepare(question, statement);
             statement.executeUpdate();
             System.out.println("Question posted. :)");
@@ -137,5 +148,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         statement.setInt(1, question.getUserId());
         statement.setString(2, question.getQuestionText());
         statement.setTimestamp(3, question.getPostingTime());
+        statement.setBoolean(4, question.isChecked());
+        statement.setBoolean(5, question.isRejected());
     }
 }

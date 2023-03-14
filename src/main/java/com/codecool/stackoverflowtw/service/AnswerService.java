@@ -21,7 +21,9 @@ public class AnswerService {
 
     public List<AnswerDTO> getAllAnswers(int questionId) {
         List<Answer> answers = answersDAO.getAllAnswerByQuestion(questionId);
-        return answers.stream().map((answer -> new AnswerDTO(answer.getAnswerId(), answer.getQuestionId(), answer.getUserId(), answer.getAnswerText(), answer.getPostingTime()))).toList();
+        return answers.stream().map((answer -> new AnswerDTO(answer.getAnswerId(), answer.getQuestionId(),
+                answer.getUserId(), answer.getAnswerText(), answer.getPostingTime(), answer.isChecked(),
+                answer.isRejected()))).toList();
     }
     public int getAllAnswerToOneQuestion(int questionId){
         return answersDAO.getCountOfAnswerForAQuestion(questionId);

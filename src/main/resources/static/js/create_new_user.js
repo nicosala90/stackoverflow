@@ -1,11 +1,9 @@
 import {data_handler} from "./data_handler.js";
 
-function main() {
+function main(userType) {
     const pageTitle = document.getElementById("page-title");
     pageTitle.style.color = "white";
     pageTitle.innerHTML = "CREATE NEW USER";
-    const emailUnHide = document.getElementById("hide");
-    emailUnHide.classList.remove("hide");
     const userMessage = document.getElementById('message');
     userMessage.classList.add("hide");
     const submitButtonUser = document.getElementById('submit-button');
@@ -19,15 +17,16 @@ function loadUsersList() {
 }
 
 function newUserDataInput(users) {
-    const newUserName = document.getElementById('new-user').value;
-    const newUserPassword = document.getElementById('new-password').value;
-    const newUserEmail = document.getElementById('new-email').value;
+    const newUserName = document.getElementById('user-name').value;
+    const newUserPassword = document.getElementById('user-password').value;
+    const newUserEmail = document.getElementById('user-email').value;
     userChecker(users, newUserName, newUserPassword, newUserEmail);
 }
 
 function userChecker(users, newUserName, newUserPassword, newUserEmail) {
     const userMessage = document.getElementById('message');
     let mistake = 0;
+    let actualUserId = 1;
     for (const user of users) {
         if (Object.values(user)[1] === (newUserName) && Object.values(user)[3] === newUserEmail) {
             mistake = 1;
@@ -38,6 +37,10 @@ function userChecker(users, newUserName, newUserPassword, newUserEmail) {
             /^[a-zA-Z0-9+/@#\-$%^&*]+$/.test(newUserPassword) &&
             /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(newUserEmail)) {
             submitNewUser({'userName': newUserName, 'userPassword': newUserPassword, 'userEmail': newUserEmail});
+
+            data_handler
+                .apiGet('api/users/all')
+                .then(data => console.log((data.stream().filter(user => user.userName === newUserName && user.userEmail === newUserEmail).get())));
             document.location = '/main';
         } else {
             userMessage.classList.remove("hide");
@@ -58,4 +61,10 @@ function submitNewUser(data) {
     document.location = '/';
 }
 
-main();
+let actualUser;
+
+function actualUserType() {
+    return actualUser
+}
+
+main(actualUserType);

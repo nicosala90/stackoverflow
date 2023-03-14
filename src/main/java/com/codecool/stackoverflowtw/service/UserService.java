@@ -1,5 +1,6 @@
 package com.codecool.stackoverflowtw.service;
 
+import com.codecool.stackoverflowtw.controller.dto.user.FirstAdminUserDTO;
 import com.codecool.stackoverflowtw.controller.dto.user.NewUserDTO;
 import com.codecool.stackoverflowtw.controller.dto.user.UserDTO;
 import com.codecool.stackoverflowtw.dao.UsersDAO;
@@ -22,19 +23,23 @@ public class UserService {
     public List<UserDTO> getAllUsers() {
         List<User> users = usersDAO.getAllUser();
         return users.stream()
-                .map(user -> new UserDTO(user.getUserId(), user.getUserName(), user.getUserEmail(), user.getRegistrationDateTime(), user.getPassword(), user.isAdmin(),user.isRejected()))
+                .map(user -> new UserDTO(user.getUserId(), user.getUserName(), user.getUserEmail(), user.getUserPassword(), user.getRegistrationDateTime(), user.isAdmin(),user.isRejected()))
                 .toList();
     }
 
     public UserDTO getUserById(int userId) {
         User user = usersDAO.getUserById(userId);
-        return new UserDTO(user.getUserId(), user.getUserName(), user.getUserEmail(), user.getRegistrationDateTime(), user.getPassword(), user.isAdmin(), user.isRejected());
+        return new UserDTO(user.getUserId(), user.getUserName(), user.getUserEmail(),  user.getUserPassword(), user.getRegistrationDateTime(),user.isAdmin(), user.isRejected());
     }
     public boolean deleteUser(int userId){
         return usersDAO.deleteUser(userId);
     }
 
     public void addNewUser(NewUserDTO user) {
-        usersDAO.addUser(user.userName(), user.password(), user.userEmail());
+        usersDAO.addUser(user.userName(), user.userPassword(), user.userEmail());
+    }
+
+    public void addFirstAdminUser(FirstAdminUserDTO firstAdminUser) {
+        usersDAO.addUser(firstAdminUser.userName(), firstAdminUser.userPassword(), firstAdminUser.userEmail());
     }
 }

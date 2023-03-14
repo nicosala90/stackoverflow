@@ -36,7 +36,7 @@ public class AnswersDaoJdbc implements AnswersDAO {
     }
 
     @Override
-    public int getCountOfAnswerForAQuestion(int id) {
+    public int getCountOfAnswerForAQuestion(int questionId) {
         String getCountAnswers = "SELECT COUNT(answer_id) AS count_answers FROM answers WHERE question_id = ?";
         int resultCount = 0;
         try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getCountAnswers)) {
@@ -46,48 +46,59 @@ public class AnswersDaoJdbc implements AnswersDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        System.out.println("megszámolt : " + resultCount);
         return resultCount;
     }
 
     @Override
-    public boolean deleteAnswer(int id) {
+    public void postAnswer(String answerText, int answerId) {
+        Date date = new Date();
+        post(new Answer(answerId, answerText, new Timestamp(date.getTime())));
+    }
+
+    public void post(Answer answer) {
+        String template = "INSERT INTO answers(answer_id, question_id, user_id, answer_text,  posting_time, is_checked, is_rejected ) values(DEFAULT, ?, ?, ?, ?, ?, ?) ";
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(template)) {
+            prepare(answer, statement);
+            statement.executeUpdate();
+            System.out.println("Answer posted. :)" + " Q nr: " + answer.getQuestionId() + " A nr: " + answer.getAnswerId() + ".");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Answer toEntity(ResultSet resultSet) throws SQLException {//létrehozz egy new Answer példányt amit egy adat bázis sorbol kiolvass
+        return new Answer(
+                resultSet.getInt("answer_id"),
+                resultSet.getInt("question_id"),
+                resultSet.getInt("user_id"),
+                resultSet.getString("answer_text"),
+                resultSet.getTimestamp("posting_time"),
+                resultSet.getBoolean("is_checked"),
+                resultSet.getBoolean("is_rejected"));
+    }
+
+    private void prepare(Answer answer, PreparedStatement statement) throws SQLException { //egy már létrejött Answer példányt belerak az adatbázisba a "?" helyére
+        statement.setInt(1, answer.getQuestionId());
+        statement.setInt(2, 1);
+        //TODO  aktuális user ID-jét kellene id beírni!
+        statement.setString(3, answer.getAnswerText());
+        statement.setTimestamp(4, answer.getPostingTime());
+        statement.setBoolean(5, answer.isChecked());
+        statement.setBoolean(6, answer.isRejected());
+    }
+
+    @Override
+    public boolean deleteAnswer(int answerId) {
         String deleteAnswer = "DELETE FROM answers WHERE answer_id = ?";
-        try (Connection connection = database.getConnection(); PreparedStatement statement = connection.prepareStatement(deleteAnswer)) {
-            statement.setInt(1, id);
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteAnswer)) {
+            statement.setInt(1, answerId);
             int rowsDeleted = statement.executeUpdate();
             return rowsDeleted > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void postAnswer(String answerText, int id) {
-        Date date = new Date();
-        post(new Answer(id, answerText, new Timestamp(date.getTime())));
-    }
-
-    public void post(Answer answer) {
-        String template = "INSERT INTO answers(answer_id, question_id, user_id, answer_text,  posting_time ) values(DEFAULT, ?, ?, ?, ?) ";
-        try (Connection connection = database.getConnection();
-             PreparedStatement statement = connection.prepareStatement(template)) {
-            prepare(answer, statement);
-            statement.executeUpdate();
-            System.out.println("Answer posted. :)");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private Answer toEntity(ResultSet resultSet) throws SQLException {//létrehozz egy new Answer példányt amit egy adat bázis sorrbol kiolvass
-        return new Answer(resultSet.getInt("answer_id"), resultSet.getInt("question_id"), resultSet.getInt("user_id"), resultSet.getString("answer_text"), resultSet.getTimestamp("posting_time"));
-    }
-
-    private void prepare(Answer answer, PreparedStatement statement) throws SQLException {//egy már létrejött Answer példányt bele raka az adatbázisba a "?" helyére
-        statement.setInt(1, answer.getQuestionId());
-        statement.setInt(2, 1);
-        //TODO
-        statement.setString(3, answer.getAnswerText());
-        statement.setTimestamp(4, answer.getPostingTime());
     }
 }

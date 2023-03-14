@@ -19,7 +19,7 @@ public class MainPageController {
         return "main_question_list";
     }
 
-    @GetMapping("/mainPage-question{id}")
+    @GetMapping("/mainPage-question/{id}")
     public String questionDetailById(@PathVariable int id) {
         return "question_detail";
     }

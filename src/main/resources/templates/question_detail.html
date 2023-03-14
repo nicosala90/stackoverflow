@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Question Detail</title>
-	<link href="css/site.css" rel="stylesheet" type="text/css">
-	<script defer src="js/question_detail.js" type="module"></script>
-	<link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" rel="stylesheet">
-	<link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Question Detail</title>
+    <link href="css/site.css" rel="stylesheet" type="text/css">
+    <script defer src="js/question_detail.js" type="module"></script>
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css"
+          rel="stylesheet">
 </head>
 <body>
 <h2>
-	<a href="/question-list">
-		<i class="icon fas fa-arrow-left"></i>
-	</a>
-	Question Detail
+    <a href="/question-list">
+        <i class="icon fas fa-arrow-left"></i>
+    </a>
+    Question Detail
 </h2>
 <div class="card">
-	<div>
-		<h5>Question id</h5>
-		<p id="question-id"></p>
-		<h5>User id</h5>
-		<p id="user-id"></p>
-		<h5>Date</h5>
-		<p id="question-date"></p>
-		<h5>Title</h5>
-		<p id="question-text"></p>
-	</div>
-	<table id="result-table">
-		<thead>
-		<tr>
-			<th>Answer id</th>
-			<th>Question id</th>
-			<th>User id</th>
-			<th>Answer</th>
-			<th>Date</th>
-			<th class="action-column center">Delete</th>
-		</tr>
-		</thead>
-	</table>
+    <table>
+        <div>
+            <tr>
+                <th style="background: coral">Question id</th>
+                <th style="background: coral">User id</th>
+                <th style="background: coral">Date</th>
+                <th style="background: coral">Title</th>
+            </tr>
+            <tr>
+                <th id="question-id"></th>
+                <th id="user-id"></th>
+                <th id="question-date"></th>
+                <th id="question-text"></th>
+            </tr>
+        </div>
+    </table>
+</div>
+<div>
+    <table  class = "hide card" id="result-table" >
+        <thead>
+        <tr>
+            <th>Answer id</th>
+            <th>Question id</th>
+            <th>User id</th>
+            <th>Answer</th>
+            <th>Date</th>
+            <th class="action-column center">Delete</th>
+        </tr>
+        </thead>
+    </table>
 </div>
 <div class="container">
-	<div class="card">
-		<a id="new-answer-button">Add new answer</a>
-	</div>
+    <div class="card">
+        <a id="new-answer-button">Add new answer</a>
+    </div>
 </div>
 </body>
 </html>

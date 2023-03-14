@@ -1,13 +1,17 @@
 package com.codecool.stackoverflowtw.dao.database;
 
 public interface TableStatements {
+
+    String DROPQUESTIONTABLE = "DROP TABLE IF EXISTS QUESTIONS";
+    String DROPANSWERTABLE = "DROP TABLE IF EXISTS ANSWERS";
+    String DROPUSERTABLE = "DROP TABLE IF EXISTS USERS";
     String USER = """
             CREATE TABLE IF NOT EXISTS USERS (
                 id SERIAL PRIMARY KEY NOT NULL,
                 user_name CHARACTER VARYING(30),
+                user_password CHARACTER VARYING(30),
                 user_email CHARACTER VARYING(30),
                 registration_date TIMESTAMPTZ,
-                password CHARACTER VARYING(30),
                 is_admin BOOLEAN,
                 is_rejected BOOLEAN
             );
@@ -17,7 +21,9 @@ public interface TableStatements {
                 question_id SERIAL PRIMARY KEY NOT NULL,
                 user_id int,
                 question_text TEXT,
-                posting_time TIMESTAMPTZ
+                posting_time TIMESTAMPTZ,
+                is_checked BOOLEAN,
+                is_rejected BOOLEAN
             );
             """;
 
@@ -27,7 +33,9 @@ public interface TableStatements {
                 user_id int,
                 answer_text TEXT,
                 question_id int,
-                posting_time TIMESTAMPTZ
+                posting_time TIMESTAMPTZ,
+                is_checked BOOLEAN,
+                is_rejected BOOLEAN                
             );
             """;
 

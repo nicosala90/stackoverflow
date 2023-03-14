@@ -7,22 +7,13 @@ export let html_factory = {
             itemRow.classList.add('item');
             for (let key of keyList) {
                 let keyTd = itemRow.insertCell();
+                // if(key === 'isAdmin'){keyTd.classList.add('isAdmin');};
+                 if(key === 'isRejected'){keyTd.classList.add('isRejected')
+                     keyTd.innerHTML = `<i class="icon black fas fa-trash" data-id="${itemRow.id}"></i>`
+                 };
+                if(item[key] === "TRUE"){keyTd.style.backgroundColor="lightGreen"};
                 keyTd.textContent = item[key];
             }
-            for (let i = 0; i < 2; i++) {
-
-                let adminSetter = itemRow.insertCell();
-                adminSetter.classList.add('center');
-                adminSetter.innerHTML = '' +
-                    '      <form id="userCheck"+i action="/action_user_status_check">\n' +
-                    '            <select name="isAdmin" id="isAdmin">\n' +
-                    '                <option value=""></option>\n' +
-                    '                <option value="false">false</option>\n' +
-                    '                <option value="true">true</option>\n' +
-                    '            </select>\n' +
-                    '        </form>';
-            }
-
             let deleteTd = itemRow.insertCell();
             deleteTd.classList.add('center');
             deleteTd.innerHTML = `<i class="icon black fas fa-trash" data-id="${item[idKey]}"></i>`

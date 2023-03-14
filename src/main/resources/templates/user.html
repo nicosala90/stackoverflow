@@ -2,29 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Question</title>
+    <title>USER PAGE</title>
+    <script src="js/add_user.js" type="module"></script>
     <link href="css/site.css" rel="stylesheet" type="text/css">
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" rel="stylesheet">
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css"
           rel="stylesheet">
-    <script src="js/add_user.js" type="module"></script>
 </head>
 <body>
 <h2>
-    <a href="/">
-        <i class="icon fas fa-arrow-left"></i>
-    </a>
-    Create new user
+    <a href="/"><i class="icon fas fa-arrow-left"></i> Back to the main page</a>
+    <p id="page-title"></p>
 </h2>
-<div class="card base-margin, user-input">
+<div class="card base-margin user-input">
     <label for="new-user">User name</label><br>
     <input type="text" id="new-user" name="user-name" maxlength="30"><br>
     <label for="new-user">Password</label><br>
     <input type="password" id="new-password" name="user-password" maxlength="30"><br>
-    <label for="new-user">Email</label><br>
-    <input type="email" id="new-email" name="user-password" maxlength="30" ><br>
+    <div id="hide">
+        <label for="new-user">Email</label><br>
+        <input type="email" id="new-email" name="user-password" maxlength="30"><br>
+    </div>
     <button id="submit-button">Submit</button>
-    <p class="hide" id="submit-result"></p>
+    <p id="message"></p>
 </div>
 </body>
 </html>
