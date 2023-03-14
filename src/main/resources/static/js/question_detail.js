@@ -39,10 +39,10 @@ function displayAnswers(answers) {
     if (Object.keys(answers).length > 0) answersTable.classList.remove("hide");
     const answersTbody = html_factory.createTableContent(answers, ['answerId', 'questionId', 'userId', 'answerText', 'postingTime'], 'answerId');
     answersTable.insertAdjacentElement('beforeend', answersTbody);
-    addNewAnswerClickListener();
+    addNewAnswerClickListener(questionId);
 }
 
-function addNewAnswerClickListener() {
+function addNewAnswerClickListener(questionId) {
     const newAnswerButton = document.getElementById('new-answer-button');
     newAnswerButton.addEventListener('click', () => {
         document.location = `/new-answer${questionId}`;
