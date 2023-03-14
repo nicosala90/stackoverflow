@@ -1,10 +1,10 @@
 package com.codecool.stackoverflowtw.dao.database;
 
+import com.codecool.stackoverflowtw.dao.UsersDaoJdbc;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
-import java.util.Map;
 
 @Configuration
 public class DataSourceConfiguration {
@@ -17,19 +17,28 @@ public class DataSourceConfiguration {
                 System.getenv("PSQL_PASSWORD"));
 
         List<String> tables = List.of(
+/*  // Table drop
+                TableStatements.DROPANSWERTABLE,
+                TableStatements.DROPQUESTIONTABLE,
+                TableStatements.DROPUSERTABLE,
+ */
                 TableStatements.USER,
                 TableStatements.QUESTION,
                 TableStatements.ANSWER,
                 TableStatements.DROPCONSTRAINTQUESTIONUSERID,
                 TableStatements.DROPCONSTRAINTANSWERUSERID,
-                TableStatements.DROPCONSTRAINTANSWERQUESTIONRID,
+                TableStatements.DROPCONSTRAINTANSWERQUESTIONID,
                 TableStatements.ANSWERFOREIGHNKEYSUSERID,
                 TableStatements.QUESTIONFOREIGHNKEYSUSERID,
                 TableStatements.ANSWERFOREIGHNKEYSQUESTIONID
         );
+
         TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
         tableInitializer.initialize();
+/*
+        UsersDaoJdbc adminUser = new UsersDaoJdbc(database);
+        adminUser.addFirstAdminUser("Admin", "admin", "firstAdmin@company.com");
+*/
         return database;
     }
-
 }

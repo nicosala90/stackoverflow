@@ -9,12 +9,35 @@ function loadQuestionsList() {
     data_handler
         .apiGet('api/questions/all')
         .then(data => displayQuestions(data))
-        .then(() => addClickListeners());
+        .then(() => addClickListeners())
 }
+/*
+function loadQuestionDetail() {
+    let allAnswer;
+    data_handler
+        .apiGet('api/questions/all')
+        .then(data => allAnswer = data)
 
+    data_handler
+        .apiGet('api/questions/all')
+        .then(data => displayQuestions(data))
+        .then(() => addClickListeners());
+
+    data_handler
+        .apiGet(`api/answers/all`)
+        .then(data => {
+            nr = Object.keys(data).length
+            console.log(nr)
+        })
+    data_handler
+        .apiGet(`api/questions/${questionId}`)
+        .then(data => displayQuestion(data, nr))
+}
+ */
 function displayQuestions(questionsList) {
+    questionsList.map(element => element[Object.keys(element)[3]] = Object.values(element)[3].toString().substring(0, 10));
     const questionsTable = document.getElementById('result-table');
-    const questionsTbody = html_factory.createTableContent(questionsList, ['posting_time', 'question_text'],'question_id');
+    const questionsTbody = html_factory.createTableContent(questionsList, ['postingTime', 'questionText'],'questionId');
     questionsTable.insertAdjacentElement('beforeend', questionsTbody);
 }
 

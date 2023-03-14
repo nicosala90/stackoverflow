@@ -1,4 +1,4 @@
-package com.codecool.stackoverflowtw.controller;
+package com.codecool.stackoverflowtw.controller.dto.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +19,8 @@ public class IndexController {
         return "question_list";
     }
 
-    @GetMapping("/question{id}")
-    public String questionDetailById(@PathVariable int id) {
+    @GetMapping("/question{questionId}")
+    public String questionDetailById(@PathVariable int questionId) {
         return "question_detail";
     }
 
@@ -29,9 +29,18 @@ public class IndexController {
         return "add_question";
     }
 
-    @GetMapping("/new-answer{questionId}")
-    public String newAnswer(@PathVariable int questionId) {
+    @GetMapping("/new-answer{id}")
+    public String newAnswer(@PathVariable int id) {
         return "add_answer";
     }
-}
 
+    @GetMapping("/new-user")
+    public String newUser() {
+        return "user";
+    }
+
+    @GetMapping("/user-list-for-admin")
+    public String users() {
+        return "user_list";
+    }
+}

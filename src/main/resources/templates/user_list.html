@@ -2,26 +2,28 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Questions List</title>
+	<title>Users List</title>
 	<link href="css/site.css" rel="stylesheet" type="text/css">
-	<script defer src="js/questions.js" type="module"></script>
+	<script defer src="js/users.js" type="module"></script>
 	<link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" rel="stylesheet">
 	<link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" rel="stylesheet">
 </head>
 <body>
 <h2>
-	<a href="/">
-		<i class="icon fas fa-arrow-left"></i>
-	</a>
-	Questions List
+	<a href="/"><i class="icon fas fa-arrow-left"></i> Back to the main page</a>
+	<p id="page-title"></p>
 </h2>
-<div class="card container">
+<div class="card container, user-list-for-admin">
 	<table id="result-table">
 		<thead>
 		<tr>
-			<th>Date</th>
-			<th>Title</th>
-			<th>Answers nr</th>
+			<th>User id</th>
+			<th>User name</th>
+			<th>User password</th>
+			<th>User email</th>
+			<th>Date of reg.</th>
+			<th>Admin</th>
+			<th>Rejected</th>
 			<th class="action-column center">Delete</th>
 		</tr>
 		</thead>

@@ -16,6 +16,7 @@ function submitNewQuestion(data) {
         .then(result => showResult(result, data.questionText));
 }
 
+
 function showResult(result, name) {
     const submitResult = document.getElementById('submit-result');
     submitResult.classList = [];
@@ -28,5 +29,6 @@ function showResult(result, name) {
         submitResult.classList.add('red');
     }
 }
+
 
 main();

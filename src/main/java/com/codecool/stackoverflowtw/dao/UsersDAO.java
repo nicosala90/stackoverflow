@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface UsersDAO {
 
-    void addUser(String userName, String userPassword);
+    void addUser(String userName, String userPassword, String userEmail);
+    void addFirstAdminUser(String userName, String userPassword, String userEmail);
     List<User> getAllUser();
     User getUserById(int userId);
     User getUserForAdminCheck(int userId);

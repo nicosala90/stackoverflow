@@ -7,6 +7,11 @@ export let html_factory = {
             itemRow.classList.add('item');
             for (let key of keyList) {
                 let keyTd = itemRow.insertCell();
+                // if(key === 'isAdmin'){keyTd.classList.add('isAdmin');};
+                 if(key === 'isRejected'){keyTd.classList.add('isRejected')
+                     keyTd.innerHTML = `<i class="icon black fas fa-trash" data-id="${itemRow.id}"></i>`
+                 };
+                if(item[key] === "TRUE"){keyTd.style.backgroundColor="lightGreen"};
                 keyTd.textContent = item[key];
             }
             let deleteTd = itemRow.insertCell();
