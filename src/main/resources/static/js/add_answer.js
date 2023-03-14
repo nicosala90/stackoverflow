@@ -1,16 +1,18 @@
 import {data_handler} from "./data_handler.js";
 
-let answerId = document.location.pathname.split("/new-answer")[1];
+let questionId = document.location.pathname.split("/new-answer")[1];
 
 function main() {
     const submitButton = document.getElementById('submit-button');
     submitButton.addEventListener('click', sendNewAnswerData)
-    addNewAnswerClickListener(answerId);
+    addNewAnswerClickListener(questionId);
 }
 
 function sendNewAnswerData() {
     const answerText = document.getElementById('new-answer').value;
-    submitNewAnswer({'answerText': answerText, 'questionId': questionId});
+    if (answerText !== "") {
+        submitNewAnswer({'answerText': answerText, 'questionId': questionId});
+    }
 }
 
 function submitNewAnswer(data) {

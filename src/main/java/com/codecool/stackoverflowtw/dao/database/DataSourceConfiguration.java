@@ -17,13 +17,11 @@ public class DataSourceConfiguration {
                 System.getenv("PSQL_PASSWORD"));
 
         List<String> tables = List.of(
-/*
-  // Table drop
+/*  // Table drop
                 TableStatements.DROPANSWERTABLE,
                 TableStatements.DROPQUESTIONTABLE,
                 TableStatements.DROPUSERTABLE,
-*/
-
+ */
                 TableStatements.USER,
                 TableStatements.QUESTION,
                 TableStatements.ANSWER,
@@ -40,7 +38,7 @@ public class DataSourceConfiguration {
 /*
         UsersDaoJdbc adminUser = new UsersDaoJdbc(database);
         adminUser.addFirstAdminUser("Admin", "admin", "firstAdmin@company.com");
-    */
+*/
         return database;
     }
 }

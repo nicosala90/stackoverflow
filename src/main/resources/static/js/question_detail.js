@@ -19,11 +19,10 @@ function loadAnswerList(questionId) {
     data_handler
         .apiGet(`api/answers/${questionId}/all`)
         .then(data => displayAnswers(data))
-  //      .then(data => displayAnswers(data, questionId))
+    //    .then(data => displayAnswers(data, questionId))
 }
 
 function displayQuestion(question) {
-    console.log(question)
     const questionId = document.getElementById('question-id');
     questionId.textContent = question['questionId'];
     const userId = document.getElementById('user-id');
@@ -35,16 +34,15 @@ function displayQuestion(question) {
 }
 
 function displayAnswers(answers) {
-
     answers.map(element => element[Object.keys(element)[4]] = Object.values(element)[4].toString().substring(0, 10));
     const answersTable = document.getElementById('result-table');
     if (Object.keys(answers).length > 0) answersTable.classList.remove("hide");
     const answersTbody = html_factory.createTableContent(answers, ['answerId', 'questionId', 'userId', 'answerText', 'postingTime'], 'answerId');
     answersTable.insertAdjacentElement('beforeend', answersTbody);
-  //  addNewAnswerClickListener(questionId);
+    addNewAnswerClickListener();
 }
 
-function addNewAnswerClickListener(questionId) {
+function addNewAnswerClickListener() {
     const newAnswerButton = document.getElementById('new-answer-button');
     newAnswerButton.addEventListener('click', () => {
         document.location = `/new-answer${questionId}`;
@@ -65,6 +63,8 @@ function handleItemDeletion(event) {
 }
 
 function removeDeletedItem(answerId) {
+    console.log(answerId)
+    onclick();
     const rowToDelete = document.getElementById(answerId);
     rowToDelete.outerHTML = '';
     /*    if(rowToDelete.childElementCount<1){
