@@ -12,14 +12,13 @@ function loadQuestionDetail(questionId) {
     data_handler
         .apiGet(`api/questions/${questionId}`)
         .then(data => displayQuestion(data))
- //       .then(() => addNewAnswerClickListener())
 }
 
 function loadAnswerList(questionId) {
     data_handler
         .apiGet(`api/answers/${questionId}/all`)
         .then(data => displayAnswers(data))
-    //    .then(data => displayAnswers(data, questionId))
+        .then(() => deleteClickListener())
 }
 
 function displayQuestion(question) {
@@ -44,34 +43,31 @@ function displayAnswers(answers) {
 
 function addNewAnswerClickListener(questionId) {
     const newAnswerButton = document.getElementById('new-answer-button');
-    console.log(questionId)
     newAnswerButton.addEventListener('click', () => {
         document.location = `/new-answer${questionId}`;
     })
+}
+function deleteClickListener() {
     const deleteButtons = document.getElementsByClassName('fa-trash');
-    console.log(deleteButtons)
-    console.log(questionId)
     for (const deleteButton of deleteButtons) {
-    console.log(deleteButton)
-    console.log(questionId)
-        deleteButton.addEventListener('click', (event) => handleAnswerDeletion(event));
+        deleteButton.addEventListener('click', (event) => handleQuestionDeletion(event));
     }
 }
 
-function handleAnswerDeletion(event) {
+function handleQuestionDeletion(event) {
     const answerId = event.target.dataset['id'];
     event.stopImmediatePropagation();
-    console.log(answerId)
-    data_handler.apiDelete(`/api/anwwers/${answerId}`)
+    data_handler.apiDelete(`/api/answers/${answerId}`)
         .then(response => {
             if (response === 200) removeDeletedItem(answerId)
         });
 }
 
 function removeDeletedItem(answerId) {
-    console.log(answerId)
     const rowToDelete = document.getElementById(answerId);
     rowToDelete.outerHTML = '';
+    console.log(rowToDelete.childElementCount)
+    questionId
     /*    if(rowToDelete.childElementCount<1){
             const answersTable = document.getElementById('result-table');
             answersTable.classList.add('hide');

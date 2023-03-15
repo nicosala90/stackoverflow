@@ -21,7 +21,7 @@ public class DataSourceConfiguration {
                 TableStatements.DROPANSWERTABLE,
                 TableStatements.DROPQUESTIONTABLE,
                 TableStatements.DROPUSERTABLE,
- */
+                */
                 TableStatements.USER,
                 TableStatements.QUESTION,
                 TableStatements.ANSWER,

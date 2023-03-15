@@ -5,7 +5,6 @@ let questionId = document.location.pathname.split("/new-answer")[1];
 function main() {
     const submitButton = document.getElementById('submit-button');
     submitButton.addEventListener('click', sendNewAnswerData)
-    addNewAnswerClickListener(questionId);
 }
 
 function sendNewAnswerData() {
@@ -32,33 +31,6 @@ function showResult(result, name) {
         submitResult.innerText = `Error during submission of ${name}`
         submitResult.classList.add('red');
     }
-}
-
-function addNewAnswerClickListener(answerId) {
-    console.log(answerId)
-    const deleteButtons = document.getElementsByClassName('fa-trash');
-    for (let deleteButton of deleteButtons) {
-        deleteButton.addEventListener('click', (event) => handleItemDeletion(event));
-    }
-}
-
-function handleItemDeletion(event) {
-    const answerId = event.target.dataset['id'];
-    console.log(answerId)
-    event.stopImmediatePropagation();
-    data_handler.apiDelete(`/api/answers/${answerId}`)
-        .then(response => {
-            if (response === 200) removeDeletedItem(answerId)
-        });
-}
-
-function removeDeletedItem(answerId) {
-    const rowToDelete = document.getElementById(answerId);
-    rowToDelete.outerHTML = '';
-    /*    if(rowToDelete.childElementCount<1){
-            const answersTable = document.getElementById('result-table');
-            answersTable.classList.add('hide');
-        }*/
 }
 
 main();
