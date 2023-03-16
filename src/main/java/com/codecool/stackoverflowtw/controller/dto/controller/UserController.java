@@ -35,10 +35,8 @@ public class UserController {
         userService.addNewUser(user);
     }
 
-    @PostMapping("/first-admin-user")
-    public void addFirstAdminUser(@RequestBody FirstAdminUserDTO firstAdminUser) {
-        userService.addFirstAdminUser(firstAdminUser);
-    }
+    //@PostMapping("/first-admin-user")
+    public void addFirstAdminUser(@RequestBody FirstAdminUserDTO firstAdminUser) {userService.addFirstAdminUser(firstAdminUser);}
 
     @DeleteMapping("/{userId}")
     public boolean deleteUser(@PathVariable int userId) {

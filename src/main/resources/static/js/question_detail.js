@@ -35,8 +35,11 @@ function displayQuestion(question) {
 function displayAnswers(answers) {
     answers.map(element => element[Object.keys(element)[4]] = Object.values(element)[4].toString().substring(0, 10));
     const answersTable = document.getElementById('result-table');
-    if (Object.keys(answers).length > 0) {answersTable.classList.remove("hide");}
-    else{answersTable.classList.add("hide")};
+    if (Object.keys(answers).length > 0) {
+        answersTable.classList.remove("hide");
+    } else {
+        answersTable.classList.add("hide")
+    }
     const answersTbody = html_factory.createTableContent(answers, ['answerId', 'questionId', 'userId', 'answerText', 'postingTime'], 'answerId');
     answersTable.insertAdjacentElement('beforeend', answersTbody);
 }
@@ -47,6 +50,7 @@ function addNewAnswerClickListener(questionId) {
         document.location = `/new-answer${questionId}`;
     })
 }
+
 function deleteClickListener() {
     const deleteButtons = document.getElementsByClassName('fa-trash');
     for (const deleteButton of deleteButtons) {
@@ -66,12 +70,9 @@ function handleQuestionDeletion(event) {
 function removeDeletedItem(answerId) {
     const rowToDelete = document.getElementById(answerId);
     rowToDelete.outerHTML = '';
-    console.log(rowToDelete.childElementCount)
-    questionId
-    /*    if(rowToDelete.childElementCount<1){
-            const answersTable = document.getElementById('result-table');
-            answersTable.classList.add('hide');
-        }*/
+    const deleteButtons = document.getElementsByClassName('fa-trash');
+    const answersTable = document.getElementById('result-table');
+    if (deleteButtons.length < 1) answersTable.classList.add('hide');
 }
 
 main();

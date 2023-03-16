@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AnswerService {
@@ -26,7 +27,8 @@ public class AnswerService {
                 answer.isRejected()))).toList();
     }
     public int getAllAnswerToOneQuestion(int questionId){
-        return answersDAO.getCountOfAnswerForAQuestion(questionId);
+        List<Answer> answers = answersDAO.getAllAnswerByQuestion(questionId);
+        return (int) answers.stream().filter(answer -> answer.getQuestionId() == questionId).count();
     }
     public void addNewAnswer(NewAnswerDTO answer) {
         answersDAO.postAnswer(answer.answerText(), answer.questionId());

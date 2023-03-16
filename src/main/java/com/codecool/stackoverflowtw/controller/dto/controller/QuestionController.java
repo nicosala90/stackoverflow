@@ -29,9 +29,7 @@ public class QuestionController {
     }
 
     @GetMapping("/sortByAlphabet")
-    public List<QuestionDTO> getAllQuestionSortByAlphabet() {
-        return questionService.getAllQuestionSortByAlphabet();
-    }
+    public List<QuestionDTO> getAllQuestionSortByAlphabet() {return questionService.getAllQuestionSortByAlphabet();}
 
     @GetMapping("/sortByDate")
     public List<QuestionDTO> getAllQuestionSortByDate() {
@@ -39,9 +37,7 @@ public class QuestionController {
     }
 
     @GetMapping("/sortByCount")
-    public List<QuestionDTO> getAllQuestionSortByAnswerCount() {
-        return questionService.getAllQuestionSortByAnswerCount();
-    }
+    public List<QuestionDTO> getAllQuestionSortByAnswerCount() {return questionService.getAllQuestionSortByAnswerCount();}
 
     @PostMapping("/")
     public void addNewQuestion(@RequestBody NewQuestionDTO question) {

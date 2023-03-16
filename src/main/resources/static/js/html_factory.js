@@ -1,7 +1,10 @@
 export let html_factory = {
     createTableContent: function (dataList, keyList, idKey) {
+        console.log(dataList)
+        console.log(keyList)
         const tbody = document.createElement('tbody');
         for (let item of dataList) {
+        console.log(item)
             let itemRow = document.createElement('tr');
             itemRow.id = item[idKey];
             itemRow.classList.add('item');

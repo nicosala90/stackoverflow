@@ -13,9 +13,14 @@ function loadQuestionsList() {
 }
 
 function displayQuestions(questionsList) {
+    for (const question of questionsList) {
+        data_handler
+            .apiGet(`api/answers/${question.questionId}/answerCount`)
+            .then(data => question['answersNr']=data)
+    }
     questionsList.map(element => element[Object.keys(element)[3]] = Object.values(element)[3].toString().substring(0, 10));
     const questionsTable = document.getElementById('result-table');
-    const questionsTbody = html_factory.createTableContent(questionsList, ['postingTime', 'questionText'], 'questionId');
+    const questionsTbody = html_factory.createTableContent(questionsList, ['postingTime', 'questionText','answersNr'], 'questionId');
     questionsTable.insertAdjacentElement('beforeend', questionsTbody);
 }
 

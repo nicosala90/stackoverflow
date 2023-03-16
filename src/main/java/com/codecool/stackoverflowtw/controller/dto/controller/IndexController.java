@@ -15,9 +15,7 @@ public class IndexController {
     }
 
     @GetMapping("/question-list")
-    public String questions() {
-        return "question_list";
-    }
+    public String questions() {return "question_list";}
 
     @GetMapping("/question{questionId}")
     public String questionDetailById(@PathVariable int questionId) {
@@ -35,9 +33,7 @@ public class IndexController {
     }
 
     @GetMapping("/new-user")
-    public String newUser() {
-        return "user";
-    }
+    public String newUser() {return "user";}
 
     @GetMapping("/user-list-for-admin")
     public String users() {
