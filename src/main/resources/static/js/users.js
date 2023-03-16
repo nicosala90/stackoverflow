@@ -6,18 +6,12 @@ function main() {
 }
 
 function loadUsersList(sorterColumn) {
-
-    //TODO data sorter
-    //let columnSorter = sorterColumn === "" ? "userId" : sorterColumn;
-    // .then(data => displayUsers(data.stream().sort(columnSorter)))
-
     data_handler
         .apiGet('api/users/all')
         .then(data => {
             displayUsers(data)
             addClickListeners(data)
         })
-        //.then(() => addClickListeners());
 }
 
 function displayUsers(usersList) {

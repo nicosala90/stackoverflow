@@ -12,9 +12,9 @@ function loadQuestionsList() {
         .then(() => addClickListeners())
 }
 
-function displayQuestions(questionsList) {
+async function displayQuestions(questionsList) {
     for (const question of questionsList) {
-        data_handler
+        await data_handler
             .apiGet(`api/answers/${question.questionId}/answerCount`)
             .then(data => question['answersNr']=data)
     }

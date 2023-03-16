@@ -22,10 +22,12 @@ function loadAnswerList(questionId) {
 }
 
 function displayQuestion(question) {
+   /*
     const questionId = document.getElementById('question-id');
     questionId.textContent = question['questionId'];
     const userId = document.getElementById('user-id');
     userId.textContent = question['userId'];
+   */
     const questionDate = document.getElementById('question-date');
     questionDate.textContent = question['postingTime'].toString().substring(0, 10);
     const questionText = document.getElementById('question-text');
@@ -40,8 +42,8 @@ function displayAnswers(answers) {
     } else {
         answersTable.classList.add("hide")
     }
-    const answersTbody = html_factory.createTableContent(answers, ['answerId', 'questionId', 'userId', 'answerText', 'postingTime'], 'answerId');
-    answersTable.insertAdjacentElement('beforeend', answersTbody);
+    const answersTbody = html_factory.createTableContent(answers, ['answerText', 'postingTime'], 'answerId');
+      answersTable.insertAdjacentElement('beforeend', answersTbody);
 }
 
 function addNewAnswerClickListener(questionId) {

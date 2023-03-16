@@ -1,5 +1,5 @@
 import {data_handler} from "./data_handler.js";
-
+/*
 function main() {
     const pageTitle = document.getElementById("page-title");
     pageTitle.style.color = "white";
@@ -63,5 +63,5 @@ function submitNewUser(data) {
         .apiPost('api/users/', data);
     document.location = '/';
 }
-
+*/
 main();
