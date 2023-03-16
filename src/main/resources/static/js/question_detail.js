@@ -66,8 +66,6 @@ function handleQuestionDeletion(event) {
 function removeDeletedItem(answerId) {
     const rowToDelete = document.getElementById(answerId);
     rowToDelete.outerHTML = '';
-    console.log(rowToDelete.childElementCount)
-    questionId
     /*    if(rowToDelete.childElementCount<1){
             const answersTable = document.getElementById('result-table');
             answersTable.classList.add('hide');

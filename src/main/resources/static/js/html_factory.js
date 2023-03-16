@@ -1,7 +1,14 @@
 export let html_factory = {
     createTableContent: function (dataList, keyList, idKey) {
+        console.log(dataList)
+        for (const data of dataList) {
+          console.log(data)
+        }
+
         const tbody = document.createElement('tbody');
         for (let item of dataList) {
+            console.log(item.questionId)
+            console.log(item.answerNr)
             let itemRow = document.createElement('tr');
             itemRow.id = item[idKey];
             itemRow.classList.add('item');
@@ -19,6 +26,7 @@ export let html_factory = {
             deleteTd.innerHTML = `<i class="icon black fas fa-trash" data-id="${item[idKey]}"></i>`
             tbody.insertAdjacentElement('beforeend', itemRow);
         }
+        console.log(dataList)
         return tbody;
     }
 }

@@ -36,21 +36,6 @@ public class AnswersDaoJdbc implements AnswersDAO {
     }
 
     @Override
-    public int getCountOfAnswerForAQuestion(int questionId) {
-        String getCountAnswers = "SELECT COUNT(answer_id) AS count_answers FROM answers WHERE question_id = ?";
-        int resultCount = 0;
-        try (Connection connection = database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(getCountAnswers)) {
-            if (resultSet.next()) {
-                resultCount = resultSet.getInt("count_answers");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("megszámolt : " + resultCount);
-        return resultCount;
-    }
-
-    @Override
     public void postAnswer(String answerText, int answerId) {
         Date date = new Date();
         post(new Answer(answerId, answerText, new Timestamp(date.getTime())));
@@ -82,6 +67,8 @@ public class AnswersDaoJdbc implements AnswersDAO {
     private void prepare(Answer answer, PreparedStatement statement) throws SQLException { //egy már létrejött Answer példányt belerak az adatbázisba a "?" helyére
         statement.setInt(1, answer.getQuestionId());
         statement.setInt(2, 1);
+        System.out.println("User id "+answer.getUserId());
+        // statement.setInt(2, answer.getUserId());
         //TODO  aktuális user ID-jét kellene id beírni!
         statement.setString(3, answer.getAnswerText());
         statement.setTimestamp(4, answer.getPostingTime());

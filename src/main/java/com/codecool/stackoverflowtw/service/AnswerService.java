@@ -25,9 +25,7 @@ public class AnswerService {
                 answer.getUserId(), answer.getAnswerText(), answer.getPostingTime(), answer.isChecked(),
                 answer.isRejected()))).toList();
     }
-    public int getAllAnswerToOneQuestion(int questionId){
-        return answersDAO.getCountOfAnswerForAQuestion(questionId);
-    }
+
     public void addNewAnswer(NewAnswerDTO answer) {
         answersDAO.postAnswer(answer.answerText(), answer.questionId());
     }

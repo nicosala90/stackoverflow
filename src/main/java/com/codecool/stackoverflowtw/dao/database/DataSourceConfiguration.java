@@ -21,7 +21,7 @@ public class DataSourceConfiguration {
                 TableStatements.DROPANSWERTABLE,
                 TableStatements.DROPQUESTIONTABLE,
                 TableStatements.DROPUSERTABLE,
-                */
+*/
                 TableStatements.USER,
                 TableStatements.QUESTION,
                 TableStatements.ANSWER,
@@ -35,7 +35,7 @@ public class DataSourceConfiguration {
 
         TableInitializer tableInitializer = new TableInitializerPSQL(database, tables);
         tableInitializer.initialize();
-/*
+/*// Admin user creator !
         UsersDaoJdbc adminUser = new UsersDaoJdbc(database);
         adminUser.addFirstAdminUser("Admin", "admin", "firstAdmin@company.com");
 */

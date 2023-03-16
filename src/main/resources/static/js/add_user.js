@@ -38,7 +38,7 @@ function userChecker(users, newUserName, newUserPassword, newUserEmail) {
             /^[a-zA-Z0-9+/@#\-$%^&*]+$/.test(newUserPassword) &&
             /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(newUserEmail)) {
             submitNewUser({'userName': newUserName, 'userPassword': newUserPassword, 'userEmail': newUserEmail});
-            document.location = '/main';
+            document.location = '/user-list-for-admin';
         } else {
             userMessage.classList.remove("hide");
             userMessage.innerHTML = "Wrong data, please correct name, password and email if it is needed!";
@@ -48,7 +48,6 @@ function userChecker(users, newUserName, newUserPassword, newUserEmail) {
     } else {
         userMessage.classList.remove("hide");
         userMessage.innerHTML = "Already exists user the same name and email address!";
-        onclick();
     }
 }
 

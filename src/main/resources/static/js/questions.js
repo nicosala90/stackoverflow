@@ -14,8 +14,15 @@ function loadQuestionsList() {
 
 function displayQuestions(questionsList) {
     questionsList.map(element => element[Object.keys(element)[3]] = Object.values(element)[3].toString().substring(0, 10));
+    for (const question of questionsList) {
+        data_handler
+            .apiGet(`api/answers/${question.questionId}/all`)
+            .then(data => question['answerNr'] = data.length)
+    }
+
     const questionsTable = document.getElementById('result-table');
-    const questionsTbody = html_factory.createTableContent(questionsList, ['postingTime', 'questionText'], 'questionId');
+    const questionsTbody = html_factory.createTableContent(questionsList, ['postingTime', 'questionText','answerNr'], 'questionId');
+    //questionsTable.insertAdjacentElement('afterbegin', questionsTbody);
     questionsTable.insertAdjacentElement('beforeend', questionsTbody);
 }
 

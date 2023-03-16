@@ -24,11 +24,6 @@ public class AnswerController {
         return answerService.getAllAnswers(questionId);
     }
 
-    @GetMapping("/{questionId}/answerCount")
-    public int getCountOfAnswerToAQuestion(@PathVariable int questionId) {
-        return answerService.getAllAnswerToOneQuestion(questionId);
-    }
-
     @DeleteMapping("/{answerId}")
     public boolean deleteAnswer(@PathVariable int answerId) {
         return answerService.deleteAnswer(answerId);
