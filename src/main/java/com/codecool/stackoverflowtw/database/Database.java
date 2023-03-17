@@ -1,4 +1,4 @@
-package com.codecool.stackoverflowtw.dao.database;
+package com.codecool.stackoverflowtw.database;
 
 import java.sql.Connection;
 

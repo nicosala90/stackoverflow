@@ -1,4 +1,4 @@
-package com.codecool.stackoverflowtw.controller.dto.user;
+package com.codecool.stackoverflowtw.dto.user;
 
 public record NewUserDTO(String userName, String userPassword, String userEmail) {
 }

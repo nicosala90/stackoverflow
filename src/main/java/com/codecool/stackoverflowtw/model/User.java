@@ -1,4 +1,4 @@
-package com.codecool.stackoverflowtw.dao.model;
+package com.codecool.stackoverflowtw.model;
 
 import java.sql.Timestamp;
 

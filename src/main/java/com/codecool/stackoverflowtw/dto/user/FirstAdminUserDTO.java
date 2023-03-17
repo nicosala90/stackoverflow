@@ -1,3 +1,3 @@
-package com.codecool.stackoverflowtw.controller.dto.user;
+package com.codecool.stackoverflowtw.dto.user;
 
 public record FirstAdminUserDTO(String userName, String userPassword, String userEmail) {}

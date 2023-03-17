@@ -1,6 +1,6 @@
 package com.codecool.stackoverflowtw.dao;
 
-import com.codecool.stackoverflowtw.dao.model.Answer;
+import com.codecool.stackoverflowtw.model.Answer;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.codecool.stackoverflowtw.controller.dto.controller;
+package com.codecool.stackoverflowtw.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

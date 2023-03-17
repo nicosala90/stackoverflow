@@ -1,10 +1,10 @@
 package com.codecool.stackoverflowtw.service;
 
-import com.codecool.stackoverflowtw.controller.dto.user.FirstAdminUserDTO;
-import com.codecool.stackoverflowtw.controller.dto.user.NewUserDTO;
-import com.codecool.stackoverflowtw.controller.dto.user.UserDTO;
+import com.codecool.stackoverflowtw.dto.user.FirstAdminUserDTO;
+import com.codecool.stackoverflowtw.dto.user.NewUserDTO;
+import com.codecool.stackoverflowtw.dto.user.UserDTO;
 import com.codecool.stackoverflowtw.dao.UsersDAO;
-import com.codecool.stackoverflowtw.dao.model.User;
+import com.codecool.stackoverflowtw.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

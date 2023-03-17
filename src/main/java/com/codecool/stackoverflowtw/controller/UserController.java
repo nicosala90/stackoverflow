@@ -1,9 +1,8 @@
-package com.codecool.stackoverflowtw.controller.dto.controller;
+package com.codecool.stackoverflowtw.controller;
 
 
-import com.codecool.stackoverflowtw.controller.dto.user.FirstAdminUserDTO;
-import com.codecool.stackoverflowtw.controller.dto.user.NewUserDTO;
-import com.codecool.stackoverflowtw.controller.dto.user.UserDTO;
+import com.codecool.stackoverflowtw.dto.user.NewUserDTO;
+import com.codecool.stackoverflowtw.dto.user.UserDTO;
 import com.codecool.stackoverflowtw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +33,6 @@ public class UserController {
     public void addNewUser(@RequestBody NewUserDTO user) {
         userService.addNewUser(user);
     }
-
-    //@PostMapping("/first-admin-user")
-    public void addFirstAdminUser(@RequestBody FirstAdminUserDTO firstAdminUser) {userService.addFirstAdminUser(firstAdminUser);}
 
     @DeleteMapping("/{userId}")
     public boolean deleteUser(@PathVariable int userId) {

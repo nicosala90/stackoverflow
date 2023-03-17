@@ -1,4 +1,4 @@
-package com.codecool.stackoverflowtw.dao.database;
+package com.codecool.stackoverflowtw.database;
 
 import com.codecool.stackoverflowtw.dao.*;
 import org.springframework.context.annotation.Bean;

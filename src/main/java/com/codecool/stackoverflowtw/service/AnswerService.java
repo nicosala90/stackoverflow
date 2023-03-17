@@ -1,14 +1,13 @@
 package com.codecool.stackoverflowtw.service;
 
-import com.codecool.stackoverflowtw.controller.dto.answer.AnswerDTO;
-import com.codecool.stackoverflowtw.controller.dto.answer.NewAnswerDTO;
+import com.codecool.stackoverflowtw.dto.answer.AnswerDTO;
+import com.codecool.stackoverflowtw.dto.answer.NewAnswerDTO;
 import com.codecool.stackoverflowtw.dao.AnswersDAO;
-import com.codecool.stackoverflowtw.dao.model.Answer;
+import com.codecool.stackoverflowtw.model.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AnswerService {

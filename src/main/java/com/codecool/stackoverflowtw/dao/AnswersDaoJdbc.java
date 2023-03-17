@@ -1,7 +1,7 @@
 package com.codecool.stackoverflowtw.dao;
 
-import com.codecool.stackoverflowtw.dao.database.Database;
-import com.codecool.stackoverflowtw.dao.model.Answer;
+import com.codecool.stackoverflowtw.database.Database;
+import com.codecool.stackoverflowtw.model.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;

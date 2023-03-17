@@ -1,4 +1,4 @@
-package com.codecool.stackoverflowtw.controller.dto.answer;
+package com.codecool.stackoverflowtw.dto.answer;
 
 import java.sql.Timestamp;
 
