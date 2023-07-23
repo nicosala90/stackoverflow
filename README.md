@@ -13,3 +13,14 @@ Implement a 'Stackoverlow' kind APP in teamwork with PostgreSQL database, Java b
 - Stick to Model View Controller layers (Frontend doesn't do calculations, only displays the data, SQL handles the data manipulation)
 - Do the base data features first and add user management later, extend already existing ones if necessary 
 - Aim for the code to keep SOLID, OOP and Clean code principles
+
+## How to start with this APP
+
+### 1. A JRE or a JDK must be installed on your computer
+
+You can check it with this command:  java -version
+
+### 2. Clone the aplication code from GitHub repository
+```
+    git clone https://github.com/nicosala90/stackoverflow.git
+```
